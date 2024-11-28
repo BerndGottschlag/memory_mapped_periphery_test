@@ -74,6 +74,8 @@ architecture rtl of spi_interface is
 	type t_PACKET_PHASE is (OPCODE, ADDRESS, DATA);
 	type t_OPERATION_TYPE is (WRITE_OPERATION, READ_OPERATION);
 
+	signal r_sclk_last : std_logic := '0';
+
 	signal r_PACKET_PHASE : t_PACKET_PHASE := OPCODE;
 
 	signal r_OPERATION_TYPE : t_OPERATION_TYPE := READ_OPERATION;
@@ -153,6 +155,7 @@ begin
 
 	begin
 		if rising_edge(i_wb_clk) then
+			r_sclk_last <= i_sclk;
 			if i_wb_rst = '1' then
 				o_miso <= '0';
 
@@ -178,8 +181,8 @@ begin
 					r_PACKET_PHASE <= OPCODE;
 					r_addressBitCounter <= c_NUMBER_OF_ADDRESS_BITS - 1;
 					r_dataBitCounter <= c_NUMBER_OF_DATA_BITS - 1;
-				elsif (i_cs = '0') then
-					if rising_edge(i_sclk) then
+				else
+					if (r_sclk_last = '0' and i_sclk = '1') then
 						o_debug_output <= i_mosi;
 						if (r_PACKET_PHASE = OPCODE) then
 							if (i_mosi = '0') then
