@@ -36,7 +36,7 @@ architecture behave of spi_interface_tb is
 	signal reset: std_logic := '0'; -- high active
 
 	signal cs: std_logic := '1'; -- high active
-	signal sclk: std_logic := '1'; -- high active
+	signal sclk: std_logic := '0';
 	signal mosi: std_logic := '0';
 
 	-- output signals from the UUT
@@ -102,6 +102,17 @@ begin
 		clock <= not clock;
 	end process p_Clock_Generator;
 
+	p_SCLK_Generator : process is
+	begin
+		if cs = '0' then
+			wait for c_SPI_CLOCK_HALF_PERIOD;
+			sclk <= not sclk;
+		else
+			wait for c_CLOCK_PERIOD/2;
+		end if;
+	end process p_SCLK_Generator;
+
+
 process
 	-- shared procedures
 	procedure Reset_Testbench is
@@ -134,33 +145,27 @@ process
 		wait until rising_edge(clock);
 
 		-- set up test start conditions
-		sclk <= '0';
 		cs <= '1';
 		mosi <= '0';
-		wait until rising_edge(clock);
+		wait for 10 us;
 
 		-- test
 		cs <= '0';
 		for i in 0 to 23 loop
 			mosi <= not mosi;
-			sclk <= '0';
 
-			wait for c_SPI_CLOCK_HALF_PERIOD/2;
+			wait until rising_edge(sclk);
 			if (CYC_O = '1') then
 				ACK_I <= '1';
 				wait for c_CLOCK_PERIOD;
 				ACK_I <= '0';
 			end if;
 
-			wait for c_SPI_CLOCK_HALF_PERIOD/2;
+			wait until falling_edge(sclk);
 
-			sclk <= '1';
-			wait for c_SPI_CLOCK_HALF_PERIOD;
 		end loop;
 
-		sclk <= '0';
-		wait for c_SPI_CLOCK_HALF_PERIOD/2;
-
+		wait for c_SPI_CLOCK_HALF_PERIOD/2; -- Wait a bit to de-assert cs
 		cs <= '1';
 
 
@@ -173,10 +178,9 @@ process
 		wait until rising_edge(clock);
 
 		-- set up test start conditions
-		sclk <= '0';
 		cs <= '1';
 		mosi <= '0';
-		wait until rising_edge(clock);
+		wait for 10 us;
 
 		-- test
 		cs <= '0';
@@ -184,13 +188,10 @@ process
 		wait for c_CLOCK_PERIOD;
 		for i in 0 to 23 loop
 			mosi <= not mosi;
-			sclk <= '0';
 
-			wait for c_SPI_CLOCK_HALF_PERIOD;
+			wait until rising_edge(sclk);
 
-			sclk <= '1';
-			wait for c_SPI_CLOCK_HALF_PERIOD/4;
-
+			wait for c_CLOCK_PERIOD;
 			if (CYC_O = '1') then
 				ACK_I <= '1';
 				DAT_I <= std_logic_vector(to_unsigned(16#BB#, c_WB_DATA_BUS_WITDH));
@@ -198,13 +199,11 @@ process
 				ACK_I <= '0';
 			end if;
 
-			wait for c_SPI_CLOCK_HALF_PERIOD/2 + c_SPI_CLOCK_HALF_PERIOD/4;
+			wait until falling_edge(sclk);
 
 		end loop;
 
-		sclk <= '0';
-		wait for c_SPI_CLOCK_HALF_PERIOD/2;
-
+		wait for c_SPI_CLOCK_HALF_PERIOD/2; -- Wait a bit to de-assert cs
 		cs <= '1';
 
 
