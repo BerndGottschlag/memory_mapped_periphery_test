@@ -1,8 +1,8 @@
 *.swp
 
-
+# Lattice Diamond
 *.html
-uart_test*/
+impl1*/
 *.xml
 .build_status
 .run_manager.ini
@@ -17,3 +17,28 @@ uart_test*/
 *.dmp
 ._Real_._Math_.vhd
 transcript
+
+# Modelsim (https://github.com/github/gitignore/blob/main/Global/ModelSim.gitignore)
+# ignore ModelSim generated files and directories (temp files and so on)
+[_@]*
+
+# ignore compilation output of ModelSim
+*.mti
+*.dat
+*.dbs
+*.psm
+*.bak
+*.cmp
+*.jpg
+*.html
+*.bsf
+
+# ignore simulation output of ModelSim
+wlf*
+*.wlf
+*.vstf
+*.ucdb
+cov*/
+transcript*
+sc_dpiheader.h
+vsim.dbg
