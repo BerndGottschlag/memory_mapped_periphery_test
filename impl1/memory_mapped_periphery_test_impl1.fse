@@ -1,0 +1,10 @@
+
+fsm_encoding {915521551} sequential
+
+fsm_state_encoding {915521551} opcode {00}
+
+fsm_state_encoding {915521551} address {01}
+
+fsm_state_encoding {915521551} data {10}
+
+fsm_registers {915521551} {r_PACKET_PHASE[1]}  {r_PACKET_PHASE[0]} 

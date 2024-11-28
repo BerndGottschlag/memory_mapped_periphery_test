@@ -1,0 +1,336 @@
+
+        Lattice Mapping Report File for Design Module 'spi_interface'
+
+
+Design Information
+------------------
+
+Command line:   map -a LatticeXP2 -p LFXP2-5E -t TQFP144 -s 6 -oc Industrial
+     memory_mapped_periphery_test_impl1.ngd -o
+     memory_mapped_periphery_test_impl1_map.ncd -pr
+     memory_mapped_periphery_test_impl1.prf -mp
+     memory_mapped_periphery_test_impl1.mrp -lpf /home/bernd/Dokumente/Projekte/
+     fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapp
+     ed_periphery_test/impl1/memory_mapped_periphery_test_impl1_synplify.lpf
+     -lpf /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_
+     periphery/fpga_workspace/memory_mapped_periphery_test/memory_mapped_periphe
+     ry_test.lpf -gui -msgset /home/bernd/Dokumente/Projekte/fpga_lernen/testpro
+     jekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/p
+     romote.xml 
+Target Vendor:  LATTICE
+Target Device:  LFXP2-5ETQFP144
+Target Performance:   6
+Mapper:  mg5a00,  version:  Diamond (64-bit) 3.14.0.75.2
+Mapped on:  11/25/24  21:43:08
+
+Design Summary
+--------------
+
+   Number of registers:     63 out of  3864 (2%)
+      PFU registers:           36 out of  3564 (1%)
+      PIO registers:           27 out of   300 (9%)
+   Number of SLICEs:        63 out of  2376 (3%)
+      SLICEs as Logic/ROM:     63 out of  2376 (3%)
+      SLICEs as RAM:            0 out of   405 (0%)
+      SLICEs as Carry:          0 out of  2376 (0%)
+   Number of LUT4s:         81 out of  4752 (2%)
+      Number used as logic LUTs:         81
+      Number used as distributed RAM:     0
+      Number used as ripple logic:        0
+      Number used as shift registers:     0
+   Number of PIO sites used: 42 out of 100 (42%)
+   Number of PIO FIXEDDELAY:    0
+   Number of DQSDLLs:  0 out of 2 (0%)
+   Number of PLLs:  0 out of 2 (0%)
+   Number of block RAMs:  0 out of 9 (0%)
+   Number of CLKDIVs:  0 out of 2 (0%)
+   Number of GSRs:  0 out of 1 (0%)
+   JTAG used :      No
+   Readback used :  No
+   Oscillator used :  No
+   Startup used :   No
+   Notes:-
+      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of
+     distributed RAMs) + 2*(Number of ripple logic)
+      2. Number of logic LUT4s does not include count of distributed RAM and
+     ripple logic.
+
+        Number Of Mapped DSP Components:
+   --------------------------------
+   MULT36X36B          0
+   MULT18X18B          0
+   MULT18X18MACB       0
+
+                                    Page 1
+
+
+
+
+Design:  spi_interface                                 Date:  11/25/24  21:43:08
+
+Design Summary (cont)
+---------------------
+   MULT18X18ADDSUBB    0
+   MULT18X18ADDSUBSUMB 0
+   MULT9X9B            0
+   MULT9X9ADDSUBB      0
+   MULT9X9ADDSUBSUMB   0
+   --------------------------------
+   Number of Used DSP Sites:  0 out of 24 (0 %)
+   Number of clocks:  1
+     Net i_wb_clk_c: 55 loads, 55 rising, 0 falling (Driver: PIO i_wb_clk )
+   Number of Clock Enables:  24
+     Net o_wb_cyc_1_sqmuxa_i: 1 loads, 1 LSLICEs
+     Net un1_i_cs_4_i: 1 loads, 0 LSLICEs
+     Net r_addressce[15]: 1 loads, 0 LSLICEs
+     Net r_address_1_sqmuxa: 1 loads, 0 LSLICEs
+     Net r_perform_write_0_sqmuxa: 8 loads, 0 LSLICEs
+     Net o_wb_adr_1_sqmuxa_i: 16 loads, 0 LSLICEs
+     Net un1_r_perform_write_0_sqmuxa_1_i: 1 loads, 1 LSLICEs
+     Net un1_r_perform_read_0_sqmuxa_3_i: 1 loads, 1 LSLICEs
+     Net un1_r_perform_read_0_sqmuxa_1_i: 4 loads, 4 LSLICEs
+     Net r_addressce[0]: 1 loads, 1 LSLICEs
+     Net r_addressce[1]: 1 loads, 1 LSLICEs
+     Net r_addressce[2]: 1 loads, 1 LSLICEs
+     Net r_addressce[3]: 1 loads, 1 LSLICEs
+     Net r_addressce[4]: 1 loads, 1 LSLICEs
+     Net r_addressce[5]: 1 loads, 1 LSLICEs
+     Net r_addressce[6]: 1 loads, 1 LSLICEs
+     Net r_addressce[7]: 1 loads, 1 LSLICEs
+     Net r_addressce[8]: 1 loads, 1 LSLICEs
+     Net r_addressce[9]: 1 loads, 1 LSLICEs
+     Net r_addressce[10]: 1 loads, 1 LSLICEs
+     Net r_addressce[11]: 1 loads, 1 LSLICEs
+     Net r_addressce[12]: 1 loads, 1 LSLICEs
+     Net r_addressce[13]: 1 loads, 1 LSLICEs
+     Net r_addressce[14]: 1 loads, 1 LSLICEs
+   Number of LSRs:  1
+     Net i_wb_rst_c: 48 loads, 22 LSLICEs
+   Number of nets driven by tri-state buffers:  0
+   Top 10 highest fanout non-clock nets:
+     Net i_wb_rst_c: 54 loads
+     Net i_mosi_c: 26 loads
+     Net r_addressBitCounter[0]: 21 loads
+     Net r_addressBitCounter[1]: 21 loads
+     Net o_wb_adr_1_sqmuxa_i: 16 loads
+     Net i_wb_ack_c: 15 loads
+     Net un1_i_cs_2_0_a3: 15 loads
+     Net r_dataBitCounter[2]: 14 loads
+     Net i_cs_c: 12 loads
+     Net r_perform_read: 12 loads
+
+
+
+
+   Number of warnings:  2
+   Number of errors:    0
+     
+
+
+                                    Page 2
+
+
+
+
+Design:  spi_interface                                 Date:  11/25/24  21:43:08
+
+Design Errors/Warnings
+----------------------
+
+WARNING - map: IO buffer missing for top level port i_sclk...logic will be
+     discarded.
+WARNING - map: IO buffer missing for top level port i_wb_err...logic will be
+     discarded.
+
+IO (PIO) Attributes
+-------------------
+
++---------------------+-----------+-----------+------------+------------+
+| IO Name             | Direction | Levelmode | IO         | FIXEDDELAY |
+|                     |           |  IO_TYPE  | Register   |            |
++---------------------+-----------+-----------+------------+------------+
+| o_miso              | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| i_cs                | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_we             | OUTPUT    | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_stb            | OUTPUT    | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_cyc            | OUTPUT    | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_ack            | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[15]        | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[14]        | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[13]        | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[12]        | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[11]        | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[10]        | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[9]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[8]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[7]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[6]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[5]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[4]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[3]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[2]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[1]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_adr[0]         | OUTPUT    | LVCMOS25  | OUT        |            |
+
+                                    Page 3
+
+
+
+
+Design:  spi_interface                                 Date:  11/25/24  21:43:08
+
+IO (PIO) Attributes (cont)
+--------------------------
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[7]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[6]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[5]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[4]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[3]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[2]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[1]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_dat[0]         | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[7]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[6]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[5]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[4]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[3]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[2]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[1]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| o_wb_dat[0]         | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_clk            | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| i_wb_rst            | INPUT     | LVCMOS25  |            |            |
++---------------------+-----------+-----------+------------+------------+
+| o_debug_output      | OUTPUT    | LVCMOS25  | OUT        |            |
++---------------------+-----------+-----------+------------+------------+
+| i_mosi              | INPUT     | LVCMOS25  | IN         |            |
++---------------------+-----------+-----------+------------+------------+
+
+Removed logic
+-------------
+
+Block VCC undriven or does not drive anything - clipped.
+Block GSR_INST undriven or does not drive anything - clipped.
+Block GND undriven or does not drive anything - clipped.
+Signal VCC undriven or does not drive anything - clipped.
+Signal GND undriven or does not drive anything - clipped.
+
+Run Time and Memory Usage
+-------------------------
+
+   Total CPU Time: 0 secs  
+   Total REAL Time: 0 secs  
+
+                                    Page 4
+
+
+
+
+Design:  spi_interface                                 Date:  11/25/24  21:43:08
+
+Run Time and Memory Usage (cont)
+--------------------------------
+   Peak Memory Usage: 158 MB
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    Page 5
+
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2024 Lattice Semiconductor Corporation,  All rights
+     reserved.

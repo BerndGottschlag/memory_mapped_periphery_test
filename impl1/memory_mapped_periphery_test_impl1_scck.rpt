@@ -1,0 +1,50 @@
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: /home/bernd/opt/lscc/diamond/3.14/synpbase
+OS: Fedora Linux 40 (Workstation Edition)
+Hostname: fedora
+max virtual memory: unlimited (bytes)
+max user processes: 62239
+max stack size: 8388608 (bytes)
+
+
+Implementation : impl1
+
+# Written on Mon Nov 25 21:42:03 2024
+
+##### FILES SYNTAX CHECKED ##############################################
+Constraint File(s):      (none)
+
+#Run constraint checker to find more issues with constraints.
+#########################################################################
+
+
+
+No issues found in constraint syntax.
+
+
+
+Clock Summary
+*************
+
+          Start                      Requested     Requested     Clock        Clock          Clock
+Level     Clock                      Frequency     Period        Type         Group          Load 
+--------------------------------------------------------------------------------------------------
+0 -       spi_interface|i_wb_clk     200.0 MHz     5.000         inferred     (multiple)     63   
+==================================================================================================
+
+
+Clock Load Summary
+******************
+
+                           Clock     Source             Clock Pin            Non-clock Pin     Non-clock Pin
+Clock                      Load      Pin                Seq Example          Seq Example       Comb Example 
+------------------------------------------------------------------------------------------------------------
+spi_interface|i_wb_clk     63        i_wb_clk(port)     o_debug_output.C     -                 -            
+============================================================================================================

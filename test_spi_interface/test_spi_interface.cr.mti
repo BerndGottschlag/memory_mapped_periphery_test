@@ -1,0 +1,10 @@
+/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd {1 {vcom -work work -2008 -explicit -vopt -stats=none /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd
+Questa Lattice OEM Edition-64 vcom 2024.2 Compiler 2024.05 May 20 2024
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity spi_interface
+-- Compiling architecture rtl of spi_interface
+
+} {} {}}

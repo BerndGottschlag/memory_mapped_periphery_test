@@ -1,0 +1,124 @@
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: /home/bernd/opt/lscc/diamond/3.14/synpbase
+OS: Fedora Linux 40 (Workstation Edition)
+Hostname: fedora
+max virtual memory: unlimited (bytes)
+max user processes: 62239
+max stack size: 8388608 (bytes)
+
+
+Implementation : impl1
+Synopsys HDL Compiler, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:30:48, @5637152
+
+@N|Running in 64-bit mode
+###########################################################[
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: /home/bernd/opt/lscc/diamond/3.14/synpbase
+OS: Fedora Linux 40 (Workstation Edition)
+Hostname: fedora
+max virtual memory: unlimited (bytes)
+max user processes: 62239
+max stack size: 8388608 (bytes)
+
+
+Implementation : impl1
+Synopsys VHDL Compiler, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:30:48, @5637152
+
+@N|Running in 64-bit mode
+@N|stack limit increased to max
+@N:"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":41:7:41:19|Top entity is set to spi_interface.
+@N: CD140 :	| Using the VHDL 1993 Standard for file '/home/bernd/opt/lscc/diamond/3.14/cae_library/synthesis/vhdl/xp2.vhd'.
+@N: CD140 :	| Using the VHDL 1993 Standard for file '/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd'.
+@N: CD140 :	| Using the VHDL 1993 Standard for file '/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/pll.vhd'.
+@N: CD140 :	| Using the VHDL 1993 Standard for file '/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/toplevel.vhd'.
+VHDL syntax check successful!
+@N: CD630 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":41:7:41:19|Synthesizing work.spi_interface.rtl.
+@N: CD233 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":74:21:74:22|Using sequential encoding for type t_packet_phase.
+@N: CD233 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":75:23:75:24|Using sequential encoding for type t_operation_type.
+Post processing for work.spi_interface.rtl
+Running optimization stage 1 on spi_interface .......
+Finished optimization stage 1 on spi_interface (CPU Time 0h:00m:00s, Memory Used current: 186MB peak: 186MB)
+Running optimization stage 2 on spi_interface .......
+@N: CL201 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":155:2:155:3|Trying to extract state machine for register r_PACKET_PHASE.
+Extracted state machine for register r_PACKET_PHASE
+State machine has 3 reachable states with original encodings of:
+   00
+   01
+   10
+@N: CL159 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":49:2:49:7|Input i_sclk is unused.
+@N: CL159 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":64:2:64:9|Input i_wb_err is unused.
+Finished optimization stage 2 on spi_interface (CPU Time 0h:00m:00s, Memory Used current: 187MB peak: 188MB)
+
+For a summary of runtime per design unit, please see file:
+==========================================================
+@L: /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/impl1/synwork/layer0.duruntime
+
+
+
+At c_vhdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 187MB peak: 188MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Mon Nov 25 21:42:01 2024
+
+###########################################################]
+###########################################################[
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: /home/bernd/opt/lscc/diamond/3.14/synpbase
+OS: Fedora Linux 40 (Workstation Edition)
+Hostname: fedora
+max virtual memory: unlimited (bytes)
+max user processes: 62239
+max stack size: 8388608 (bytes)
+
+
+Implementation : impl1
+Synopsys Synopsys Netlist Linker, Version comp202309synp1, Build 349R, Built Sep 17 2024 08:30:48, @5637152
+
+@N|Running in 64-bit mode
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 186MB peak: 186MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Mon Nov 25 21:42:01 2024
+
+###########################################################]
+
+For a summary of runtime and memory usage for all design units, please see file:
+==========================================================
+@L: /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/impl1/synwork/memory_mapped_periphery_test_impl1_comp.rt.csv
+
+@END
+
+At c_hdl Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 36MB peak: 37MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Mon Nov 25 21:42:01 2024
+
+###########################################################]

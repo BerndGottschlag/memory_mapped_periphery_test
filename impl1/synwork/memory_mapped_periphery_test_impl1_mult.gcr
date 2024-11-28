@@ -1,0 +1,8 @@
+i i_wb_clk
+m 0 0
+u 19 63
+p {p:i_wb_clk}{t:r_PACKET_PHASE[1].C}
+e ckid0_0 {t:r_PACKET_PHASE[1].C} dff
+c ckid0_0 {p:i_wb_clk} port Unsupported/too complex instance on clock path
+l 0 0 0 0 0 0
+r 0 0 0 0 0 0 0 0

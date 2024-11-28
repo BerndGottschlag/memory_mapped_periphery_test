@@ -1,0 +1,17 @@
+if {![file exists "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/test_spi_interface/test_spi_interface.mpf"]} { 
+	project new "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/test_spi_interface" test_spi_interface
+	project addfile "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd"
+	project addfile "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd"
+	vlib  work
+	vdel -lib work -all 
+	vlib work
+	vcom -work work "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd"
+	vcom -work work "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd"
+} else {
+	project open "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/test_spi_interface/test_spi_interface"
+	project compileoutofdate
+}
+vsim -voptargs=+acc -L work -L pmi_work -L ovi_xp2  spi_interface_tb
+view wave
+add wave /*
+run 1000ns

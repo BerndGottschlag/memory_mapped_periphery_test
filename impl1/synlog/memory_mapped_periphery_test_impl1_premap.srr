@@ -1,0 +1,160 @@
+# Mon Nov 25 21:42:03 2024
+
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: V-2023.09L-2
+Install: /home/bernd/opt/lscc/diamond/3.14/synpbase
+OS: Fedora Linux 40 (Workstation Edition)
+Hostname: fedora
+max virtual memory: unlimited (bytes)
+max user processes: 62239
+max stack size: 8388608 (bytes)
+
+
+Implementation : impl1
+Synopsys Lattice Technology Pre-mapping, Version map202309lat, Build 191R, Built Sep 17 2024 09:08:23, @5637152
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 441MB peak: 441MB)
+
+
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 455MB peak: 456MB)
+
+@A: MF827 |No constraint file specified.
+@L: /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/impl1/memory_mapped_periphery_test_impl1_scck.rpt 
+See clock summary report "/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/impl1/memory_mapped_periphery_test_impl1_scck.rpt"
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 455MB peak: 456MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 455MB peak: 456MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 459MB peak: 459MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 461MB peak: 461MB)
+
+NConnInternalConnection caching is on
+@N: FX493 |Applying initial value "1" on instance r_OPERATION_TYPE[0].
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@A: FX681 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":155:2:155:3|Initial value on register r_dataBitCounter[2:0] is non-zero which can prevent the register from being packed into a block RAM or DSP.
+@N: FX493 |Applying initial value "111" on instance r_dataBitCounter[2:0].
+@A: FX681 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":155:2:155:3|Initial value on register r_addressBitCounter[3:0] is non-zero which can prevent the register from being packed into a block RAM or DSP.
+@N: FX493 |Applying initial value "1110" on instance r_addressBitCounter[3:0].
+@W: BN132 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":155:2:155:3|Removing sequential instance o_wb_stb because it is equivalent to instance o_wb_we. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":155:2:155:3|Removing sequential instance o_wb_cyc because it is equivalent to instance o_wb_we. To keep the instance, apply constraint syn_preserve=1 on the instance.
+
+Starting HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Finished HSTDM IP insertion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Started DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Finished DisTri Cleanup (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+Encoding state machine r_PACKET_PHASE[0:2] (in view: work.spi_interface(rtl))
+original code -> new code
+   00 -> 00
+   01 -> 01
+   10 -> 10
+
+Starting clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+mixed edge conversion for GCC is OFF
+
+Finished clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Starting clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+@N: FX1184 |Applying syn_allowed_resources blockrams=9 on top level netlist spi_interface 
+
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+
+Clock Summary
+******************
+
+          Start                      Requested     Requested     Clock        Clock          Clock
+Level     Clock                      Frequency     Period        Type         Group          Load 
+--------------------------------------------------------------------------------------------------
+0 -       spi_interface|i_wb_clk     200.0 MHz     5.000         inferred     (multiple)     63   
+==================================================================================================
+
+
+
+Clock Load Summary
+***********************
+
+                           Clock     Source             Clock Pin            Non-clock Pin     Non-clock Pin
+Clock                      Load      Pin                Seq Example          Seq Example       Comb Example 
+------------------------------------------------------------------------------------------------------------
+spi_interface|i_wb_clk     63        i_wb_clk(port)     o_debug_output.C     -                 -            
+============================================================================================================
+
+@W: MT529 :"/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd":155:2:155:3|Found inferred clock spi_interface|i_wb_clk which controls 63 sequential elements including r_PACKET_PHASE[1]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+ICG Latch Removal Summary:
+Number of ICG latches removed: 0
+Number of ICG latches not removed:	0
+
+
+@S |Clock Optimization Summary
+
+
+
+#### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
+
+1 non-gated/non-generated clock tree(s) driving 63 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+============================ Non-Gated/Non-Generated Clocks =============================
+Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance  
+-----------------------------------------------------------------------------------------
+@KP:ckid0_0       i_wb_clk            port                   63         r_PACKET_PHASE[1]
+=========================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######
+
+
+Summary of user generated gated clocks:
+0 user generated gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.
+Finished Pre Mapping Phase.
+
+Starting constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Finished constraint checker preprocessing (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+
+Finished constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 509MB peak: 509MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:02s; Memory used current: 421MB peak: 509MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:02s cputime
+# Mon Nov 25 21:42:04 2024
+
+###########################################################]
