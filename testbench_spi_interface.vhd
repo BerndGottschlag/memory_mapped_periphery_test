@@ -117,7 +117,7 @@ process
 	-- shared procedures
 	procedure Reset_Testbench is
 	begin
-		-- reset the FIFO
+		-- reset the UUT
 		reset <= '1';
 		wait for c_CLOCK_PERIOD * 10;
 		reset <= '0';
