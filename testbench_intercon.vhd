@@ -9,13 +9,10 @@ end intercon_tb;
 architecture behave of intercon_tb is
 	-- system clock
 	constant c_CLOCK_PERIOD : time := 10 ns; -- 100 MHz clock -> 10 ns period
-	-- spi clock
-	constant c_SPI_CLOCK_HALF_PERIOD : time := 10 us; -- 100 kHz clock -> 10 us period -> 5 us half period
 
 	-- internal signals of the test bench
 	signal testCaseId: natural range 0 to 255;
 	signal testPhaseCounter: natural range 0 to 255;
-	signal bitCounter : natural range 0 to 255;
 
 	-- wishbone interfaces of the UUT
 	constant c_WB_DATA_BUS_WITDH : integer := 8;
@@ -159,7 +156,6 @@ process
 	-- TODO: assert that the interface is fully reset
 
 		testPhaseCounter <= 0;
-		bitCounter <= 0;
 
 		-- reset testbench
 		M0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
