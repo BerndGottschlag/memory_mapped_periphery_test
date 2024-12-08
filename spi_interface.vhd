@@ -81,8 +81,8 @@ architecture rtl of spi_interface is
 	signal r_addressBitCounter : integer range 0 to c_NUMBER_OF_ADDRESS_BITS - 1 := c_NUMBER_OF_ADDRESS_BITS - 1;
 	signal r_dataBitCounter : integer range 0 to c_NUMBER_OF_DATA_BITS - 1 := c_NUMBER_OF_DATA_BITS - 1;
 
-	signal r_address : std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
-	signal r_data : std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
+	signal r_address : std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH)) ;
+	signal r_data : std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
 	signal r_perform_write : std_logic;
 	signal r_perform_read : std_logic;
 begin
@@ -205,7 +205,7 @@ begin
 							if (r_OPERATION_TYPE = WRITE_OPERATION) then
 								r_data(r_dataBitCounter) <= i_mosi;
 								-- The data can be transferred via Wishbone bus as soon as the last data bit was received
-								if (r_dataBitCounter = 1) then
+								if (r_dataBitCounter = 0) then
 									r_perform_write <= '1';
 								end if;
 							else
