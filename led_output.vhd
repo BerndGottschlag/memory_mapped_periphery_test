@@ -54,8 +54,6 @@ architecture rtl of led_output is
 
 	signal r_termination_signaled : std_logic := '0';
 
-	signal r_test_unsigned : integer;
-
 	procedure p_RESET_WB_INTERFACE (
 		signal o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
 		signal o_wb_ack : out std_logic;
@@ -67,22 +65,6 @@ architecture rtl of led_output is
 		o_wb_err <= '0';
 	end p_RESET_WB_INTERFACE;
 
-	procedure p_WB_READ_TRANSACTION (
-		signal i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		signal o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		signal i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
-		signal o_wb_ack : out std_logic;
-		signal i_wb_cyc : in std_logic;
-		signal i_wb_stb : in std_logic;
-		signal o_wb_err : out std_logic;
-		signal i_wb_we : in std_logic;
-		signal r_termination_signaled : inout std_logic
-	) is
-	begin
-		if (i_wb_cyc = '1') AND (i_wb_stb = '1') then
-		else
-		end if;
-	end p_WB_READ_TRANSACTION;
 begin
 	p_CONTROL : process (i_wb_clk) is
 	begin
