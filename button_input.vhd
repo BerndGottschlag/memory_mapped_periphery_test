@@ -22,7 +22,7 @@ entity button_input is
 		o_wb_err : out std_logic;
 		i_wb_we : in std_logic;
 
-		-- LED outputs
+		-- button inputs
 		i_button_0 : in std_logic;
 		i_button_1 : in std_logic;
 		i_button_2 : in std_logic;
