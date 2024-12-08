@@ -664,8 +664,8 @@ process
 
 	end procedure;
 
-	-- main testing sequence
-	begin
+-- main testing sequence
+begin
 		testCaseId <= 1;
 		Test_Case_Slave_0_Read_Address_0x0;
 		wait for c_CLOCK_PERIOD * 5;
