@@ -41,7 +41,6 @@ architecture behave of spi_interface_tb is
 
 	-- output signals from the UUT
 	signal miso: std_logic;
-	signal debug_output: std_logic;
 
 
 	-- Component declaration for the UUT
@@ -56,8 +55,6 @@ architecture behave of spi_interface_tb is
 			i_sclk: in std_logic;
 			i_mosi: in std_logic;
 			o_miso: out std_logic;
-
-			o_debug_output: out std_logic;
 
 			-- wishbone interface
 			i_wb_rst : in std_logic; -- High active
@@ -91,9 +88,7 @@ begin
 			i_cs => cs,
 			i_sclk => sclk,
 			i_mosi => mosi,
-			o_miso => miso,
-
-			o_debug_output => debug_output
+			o_miso => miso
 			);
 
 	p_Clock_Generator : process is

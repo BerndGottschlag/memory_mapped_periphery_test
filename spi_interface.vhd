@@ -50,8 +50,6 @@ entity spi_interface is
 		i_mosi: in std_logic;
 		o_miso: out std_logic;
 
-		o_debug_output: out std_logic;
-
 		-- wishbone interface
 		i_wb_rst : in std_logic; -- High active
 		i_wb_clk : in std_logic; -- For simplicity this module also uses the WISHBONE clock for it's internal logic
@@ -183,7 +181,6 @@ begin
 					r_dataBitCounter <= c_NUMBER_OF_DATA_BITS - 1;
 				else
 					if (r_sclk_last = '0' and i_sclk = '1') then
-						o_debug_output <= i_mosi;
 						if (r_PACKET_PHASE = OPCODE) then
 							if (i_mosi = '0') then
 								r_OPERATION_TYPE <= READ_OPERATION;
