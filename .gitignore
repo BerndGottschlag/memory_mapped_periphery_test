@@ -21,6 +21,7 @@ transcript
 # Modelsim (https://github.com/github/gitignore/blob/main/Global/ModelSim.gitignore)
 # ignore ModelSim generated files and directories (temp files and so on)
 [_@]*
+etch*
 
 # ignore compilation output of ModelSim
 *.mti
