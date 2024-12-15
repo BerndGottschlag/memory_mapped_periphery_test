@@ -87,6 +87,21 @@ architecture rtl of toplevel is
 		);
 	end component pll;
 
+	-- reset and clock control
+	component reset_and_clock_control is
+		port (
+			-- inputs from external pins
+			i_osci_clk : in std_logic;
+			i_reset : in std_logic; -- low active
+
+			-- interface to the PLL
+			i_pll_lock: in std_logic; -- high active
+
+			-- outputs
+			o_reset: out std_logic -- high active
+		);
+	end component reset_and_clock_control;
+
 	-- SPI interface
 	component spi_interface is
 		generic (
@@ -234,6 +249,19 @@ begin
 			CLK => i_osci_clock,
 			CLKOP => r_sys_clk,
 			LOCK => r_pll_lock
+		);
+
+	RESET_AND_CLOCK_CONTROL_INSTANCE : reset_and_clock_control
+		port map (
+			-- inputs from external pins
+			i_osci_clk => i_osci_clock,
+			i_reset => i_reset,
+
+			-- interface to the PLL
+			i_pll_lock => r_pll_lock,
+
+			-- outputs
+			o_reset => r_reset
 		);
 
 	SPI_INTERFACE_INSTANCE : spi_interface

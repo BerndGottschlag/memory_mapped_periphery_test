@@ -55,7 +55,7 @@ architecture behave of toplevel_tb is
 
 	-- other input signals to the UUT
 	signal osci_clock: std_logic := '0';
-	signal reset: std_logic := '0'; -- high active
+	signal reset: std_logic := '0'; -- low active
 
 	signal r_test: std_logic := '0';
 	signal r_test_int: integer := 0;
@@ -126,29 +126,12 @@ begin
 		osci_clock <= not osci_clock;
 	end process p_Clock_Generator;
 
-	--p_SCLK_Generator : process is
-	--begin
-	--	if reset = '0' then
-	--		if r_cs = '0' then
-	--			wait for c_SPI_CLOCK_HALF_PERIOD;
-	--			r_sclk <= '1';
-	--			wait for c_SPI_CLOCK_HALF_PERIOD;
-	--			r_sclk <= '0';
-	--		else
-	--			wait for c_OSCI_CLOCK_PERIOD/2;
-	--		end if;
-	--	else
-	--		r_sclk <= '0';
-	--		wait for c_OSCI_CLOCK_PERIOD/2;
-	--	end if;
-	--end process p_SCLK_Generator;
-
 process
 	-- shared procedures
 	procedure Reset_Testbench is
 	begin
 		-- reset the UUT
-		reset <= '1';
+		reset <= '0';
 
 		testPhaseCounter <= 0;
 
@@ -169,7 +152,7 @@ process
 		r_button_3 <= '0';
 
 		wait for c_OSCI_CLOCK_PERIOD;
-		reset <= '0';
+		reset <= '1';
 
 
 		assert
