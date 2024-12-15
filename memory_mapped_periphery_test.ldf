@@ -2,7 +2,7 @@
 <BaliProject version="3.2" title="memory_mapped_periphery_test" device="LFXP2-5E-6TN144I" default_implementation="impl1">
     <Options/>
     <Implementation title="impl1" dir="impl1" description="impl1" synthesis="synplify" default_strategy="Strategy1">
-        <Options def_top="button_input"/>
+        <Options def_top="toplevel"/>
         <Source name="toplevel.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="toplevel"/>
         </Source>
@@ -10,7 +10,7 @@
             <Options/>
         </Source>
         <Source name="spi_interface.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="spi_interface"/>
+            <Options/>
         </Source>
         <Source name="testbench_spi_interface.vhd" type="VHDL" type_short="VHDL" syn_sim="SimOnly">
             <Options/>
@@ -19,19 +19,22 @@
             <Options/>
         </Source>
         <Source name="intercon.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="intercon"/>
+            <Options/>
         </Source>
         <Source name="testbench_led_output.vhd" type="VHDL" type_short="VHDL" syn_sim="SimOnly">
             <Options/>
         </Source>
         <Source name="led_output.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="led_output"/>
+            <Options/>
         </Source>
         <Source name="testbench_button_input.vhd" type="VHDL" type_short="VHDL" syn_sim="SimOnly">
             <Options/>
         </Source>
         <Source name="button_input.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="button_input"/>
+            <Options/>
+        </Source>
+        <Source name="testbench_toplevel.vhd" type="VHDL" type_short="VHDL" syn_sim="SimOnly">
+            <Options/>
         </Source>
         <Source name="memory_mapped_periphery_test.lpf" type="Logic Preference" type_short="LPF">
             <Options/>
@@ -49,6 +52,9 @@
             <Options/>
         </Source>
         <Source name="test_spi_interface/test_spi_interface.spf" type="Simulation Project File" type_short="SPF">
+            <Options/>
+        </Source>
+        <Source name="test_toplevel/test_toplevel.spf" type="Simulation Project File" type_short="SPF">
             <Options/>
         </Source>
     </Implementation>
