@@ -1,0 +1,13 @@
+<BaliSimProject version="1.3" path="." stage="0" language="-1" name="test_toplevel" simType="QuestaSim">
+    <Source worklib="work" path="led_output.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="button_input.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="intercon.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="spi_interface.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="pll.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="toplevel.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="testbench_toplevel.vhd" type="VHDL" langstandard="" include="none"/>
+    <SimLib value="pmi_work ovi_xp2"/>
+    <GlbInc value=""/>
+    <Macro value=""/>
+    <TopModule instance="" language="VHDL" name="toplevel_tb"/>
+</BaliSimProject>
