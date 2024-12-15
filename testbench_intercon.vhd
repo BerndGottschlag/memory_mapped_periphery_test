@@ -228,6 +228,7 @@ process
 
 		-- Set input on Slave 0
 		S0_ACK_I <= '0';
+		S0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
 
 		wait for c_CLOCK_PERIOD / 2;
 
@@ -375,6 +376,7 @@ process
 
 		-- Set input on Slave 0
 		S1_ACK_I <= '0';
+		S1_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
 
 		wait for c_CLOCK_PERIOD / 2;
 
