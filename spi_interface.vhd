@@ -141,7 +141,6 @@ begin
 				r_wb_adr <= r_address;
 				r_wb_cyc <= '1';
 				r_wb_stb <= '1';
-				r_wb_we <= '1';
 			else
 				r_data <= r_wb_dat;
 				r_wb_cyc <= '0';
