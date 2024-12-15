@@ -114,6 +114,8 @@ begin
 				r_wb_cyc <= '0';
 				r_wb_stb <= '0';
 				r_wb_we <= '0';
+				r_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
+				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH));
 
 				r_perform_write <= '0';
 			end if;
@@ -145,6 +147,7 @@ begin
 				r_wb_cyc <= '0';
 				r_wb_stb <= '0';
 				r_wb_we <= '0';
+				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH));
 
 				r_perform_read <= '0';
 			end if;
