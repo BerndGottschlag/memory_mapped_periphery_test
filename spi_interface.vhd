@@ -222,7 +222,7 @@ begin
 						end if;
 					end if;
 
-					if falling_edge(i_sclk) then
+					if (r_sclk_last = '1' and i_sclk = '0') then
 						if (r_PACKET_PHASE = DATA) then
 							if (r_OPERATION_TYPE = READ_OPERATION) then
 								o_miso <= r_data(r_dataBitCounter);
