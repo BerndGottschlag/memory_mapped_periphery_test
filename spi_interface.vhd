@@ -70,7 +70,7 @@ architecture rtl of spi_interface is
 	constant c_NUMBER_OF_DATA_BITS: integer := 8;
 
 	type t_PACKET_PHASE is (OPCODE, ADDRESS, DATA);
-	type t_OPERATION_TYPE is (WRITE_OPERATION, READ_OPERATION);
+	type t_OPERATION_TYPE is (READ_OPERATION, WRITE_OPERATION);
 
 	signal r_sclk_last : std_logic := '0';
 
