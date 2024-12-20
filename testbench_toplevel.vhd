@@ -294,7 +294,7 @@ begin
 		Test_Case_Set_LED_0;
 		wait for c_OSCI_CLOCK_PERIOD * 5;
 
-		testCaseId <= 1;
+		testCaseId <= 2;
 		Test_Case_Read_Button_0;
 		wait for c_OSCI_CLOCK_PERIOD * 5;
 

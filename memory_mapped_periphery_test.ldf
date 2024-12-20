@@ -2,7 +2,7 @@
 <BaliProject version="3.2" title="memory_mapped_periphery_test" device="LFXP2-5E-6TN144I" default_implementation="impl1">
     <Options/>
     <Implementation title="impl1" dir="impl1" description="impl1" synthesis="synplify" default_strategy="Strategy1">
-        <Options def_top="reset_and_clock_control"/>
+        <Options def_top="toplevel"/>
         <Source name="toplevel.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="toplevel"/>
         </Source>
@@ -37,7 +37,7 @@
             <Options/>
         </Source>
         <Source name="reset_and_clock_control.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="reset_and_clock_control"/>
+            <Options/>
         </Source>
         <Source name="testbench_reset_and_clock_control.vhd" type="VHDL" type_short="VHDL" syn_sim="SimOnly">
             <Options/>
