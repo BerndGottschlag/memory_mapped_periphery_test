@@ -23,6 +23,7 @@ architecture behave of reset_and_clock_control_tb is
 
 	-- output signals from the UUT
 	signal r_reset: std_logic := '0';
+	signal r_osci_enable: std_logic := '0';
 
 	-- Component declaration for the UUT
 	component reset_and_clock_control is
@@ -35,7 +36,8 @@ architecture behave of reset_and_clock_control_tb is
 			i_pll_lock: in std_logic; -- high active
 
 			-- outputs
-			o_reset: out std_logic -- high active
+			o_reset: out std_logic; -- high active
+			o_osci_enable: out std_logic
 		);
 	end component reset_and_clock_control;
 begin
@@ -45,7 +47,8 @@ begin
 			i_osci_clk => r_osci_clock_input,
 			i_reset => r_reset_input,
 			i_pll_lock => r_pll_lock,
-			o_reset => r_reset
+			o_reset => r_reset,
+			o_osci_enable => r_osci_enable
 			);
 
 	p_Osci_Clock_Generator : process is
@@ -93,6 +96,7 @@ process
 		report "Test_Case_PLL_Lock" severity note;
 		Reset_Testbench;
 		wait until rising_edge(r_osci_clock_input);
+		assert r_osci_enable = '1' report "OSCI not enabled!" severity warning;
 
 		r_reset_input <= '1';
 		r_pll_lock <= '0';
@@ -120,6 +124,7 @@ process
 		report "Test_Case_Reset" severity note;
 		Reset_Testbench;
 		wait until rising_edge(r_osci_clock_input);
+		assert r_osci_enable = '1' report "OSCI not enabled!" severity warning;
 
 		r_reset_input <= '0';
 		r_pll_lock <= '1';

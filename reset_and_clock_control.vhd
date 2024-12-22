@@ -14,13 +14,18 @@ entity reset_and_clock_control is
 		i_pll_lock: in std_logic; -- high active
 
 		-- outputs
-		o_reset: out std_logic -- high active
+		o_reset: out std_logic; -- high active
+		o_osci_enable: out std_logic
 	);
 end reset_and_clock_control;
 
 architecture rtl of reset_and_clock_control is
 	signal r_test: std_logic := '0';
 begin
+	-- always enable the external osci
+	o_osci_enable <= '1';
+
+
 	p_CONTROL : process (i_reset, i_pll_lock) is
 	begin
 		if i_reset = '0' or i_pll_lock = '0' then

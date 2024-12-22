@@ -8,6 +8,7 @@ entity toplevel is
 	port (
 		i_osci_clock : in std_logic; -- Has to be 50 MHz
 		i_reset : in std_logic; -- Has to be 50 MHz
+		o_osci_enable : out std_logic;
 
 		-- SPI interface
 		i_cs: in std_logic;
@@ -98,7 +99,8 @@ architecture rtl of toplevel is
 			i_pll_lock: in std_logic; -- high active
 
 			-- outputs
-			o_reset: out std_logic -- high active
+			o_reset: out std_logic; -- high active
+			o_osci_enable: out std_logic
 		);
 	end component reset_and_clock_control;
 
@@ -261,7 +263,8 @@ begin
 			i_pll_lock => r_pll_lock,
 
 			-- outputs
-			o_reset => r_reset
+			o_reset => r_reset,
+			o_osci_enable => o_osci_enable
 		);
 
 	SPI_INTERFACE_INSTANCE : spi_interface

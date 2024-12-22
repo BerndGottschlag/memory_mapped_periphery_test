@@ -56,6 +56,7 @@ architecture behave of toplevel_tb is
 	-- other input signals to the UUT
 	signal osci_clock: std_logic := '0';
 	signal reset: std_logic := '0'; -- low active
+	signal r_osci_enable: std_logic;
 
 	signal r_test: std_logic := '0';
 	signal r_test_int: integer := 0;
@@ -72,6 +73,7 @@ architecture behave of toplevel_tb is
 			i_sclk: in std_logic;
 			i_mosi: in std_logic;
 			o_miso: out std_logic;
+			o_osci_enable : out std_logic;
 
 			-- buttons
 			i_button_0 : in std_logic;
