@@ -76,14 +76,14 @@ begin
 				r_registers <= (others => std_logic_vector(to_unsigned(0, c_REGISTER_SIZE_IN_BITS)));
 
 				-- reset LED outputs
-				o_led_0 <= '0';
-				o_led_1 <= '0';
-				o_led_2 <= '0';
-				o_led_3 <= '0';
-				o_led_4 <= '0';
-				o_led_5 <= '0';
-				o_led_6 <= '0';
-				o_led_7 <= '0';
+				o_led_0 <= '1';
+				o_led_1 <= '1';
+				o_led_2 <= '1';
+				o_led_3 <= '1';
+				o_led_4 <= '1';
+				o_led_5 <= '1';
+				o_led_6 <= '1';
+				o_led_7 <= '1';
 			else
 				if (i_wb_cyc = '1') AND (i_wb_stb = '1') AND (r_termination_signaled = '0') then
 					if to_integer(signed(i_wb_adr)) < r_registers'length then
@@ -105,14 +105,14 @@ begin
 
 				-- set LED outputs according to state registers
 				-- TODO set this outside of the clock?
-				o_led_0 <= r_registers(r_led_state_register_0_address)(0);
-				o_led_1 <= r_registers(r_led_state_register_1_address)(0);
-				o_led_2 <= r_registers(r_led_state_register_2_address)(0);
-				o_led_3 <= r_registers(r_led_state_register_3_address)(0);
-				o_led_4 <= r_registers(r_led_state_register_4_address)(0);
-				o_led_5 <= r_registers(r_led_state_register_5_address)(0);
-				o_led_6 <= r_registers(r_led_state_register_6_address)(0);
-				o_led_7 <= r_registers(r_led_state_register_7_address)(0);
+				o_led_0 <= NOT(r_registers(r_led_state_register_0_address)(0));
+				o_led_1 <= NOT(r_registers(r_led_state_register_1_address)(0));
+				o_led_2 <= NOT(r_registers(r_led_state_register_2_address)(0));
+				o_led_3 <= NOT(r_registers(r_led_state_register_3_address)(0));
+				o_led_4 <= NOT(r_registers(r_led_state_register_4_address)(0));
+				o_led_5 <= NOT(r_registers(r_led_state_register_5_address)(0));
+				o_led_6 <= NOT(r_registers(r_led_state_register_6_address)(0));
+				o_led_7 <= NOT(r_registers(r_led_state_register_7_address)(0));
 			end if;
 		end if;
 	end process p_CONTROL;
