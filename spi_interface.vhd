@@ -181,6 +181,10 @@ begin
 					r_PACKET_PHASE <= OPCODE;
 					r_addressBitCounter <= c_NUMBER_OF_ADDRESS_BITS - 1;
 					r_dataBitCounter <= c_NUMBER_OF_DATA_BITS - 1;
+					o_miso <= '0';
+
+					r_OPERATION_TYPE <= READ_OPERATION;
+					r_data <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
 				else
 					if (r_sclk_last = '0' and i_sclk = '1') then
 						if (r_PACKET_PHASE = OPCODE) then
