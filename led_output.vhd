@@ -15,8 +15,8 @@ use ieee.numeric_std.all;
 
 entity led_output is
 	generic (
-		g_WB_DATA_BUS_WITDH : integer := 8;
-		g_WB_ADDRESS_BUS_WITDH : integer := 10
+		g_WB_DATA_BUS_WIDTH : integer := 8;
+		g_WB_ADDRESS_BUS_WIDTH : integer := 10
 		);
 	port (
 		-- shared signals
@@ -24,9 +24,9 @@ entity led_output is
 		i_wb_clk : in std_logic;
 
 		-- wishbone interface (slave)
-		i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		o_wb_ack : out std_logic;
 		i_wb_cyc : in std_logic;
 		i_wb_stb : in std_logic;
@@ -65,12 +65,12 @@ architecture rtl of led_output is
 	signal r_termination_signaled : std_logic := '0';
 
 	procedure p_RESET_WB_INTERFACE (
-		signal o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
+		signal o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
 		signal o_wb_ack : out std_logic;
 		signal o_wb_err : out std_logic
 	) is
 	begin
-		o_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
+		o_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
 		o_wb_ack <= '0';
 		o_wb_err <= '0';
 	end p_RESET_WB_INTERFACE;

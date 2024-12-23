@@ -25,32 +25,32 @@ architecture behave of intercon_tb is
 	signal testPhaseCounter: natural range 0 to 255;
 
 	-- wishbone interfaces of the UUT
-	constant c_WB_DATA_BUS_WITDH : integer := 8;
-	constant c_M0_WB_ADDRESS_BUS_WITDH : integer := 16;
-	constant c_S0_WB_ADDRESS_BUS_WITDH : integer := 10;
-	constant c_S1_WB_ADDRESS_BUS_WITDH : integer := 10;
+	constant c_WB_DATA_BUS_WIDTH : integer := 8;
+	constant c_M0_WB_ADDRESS_BUS_WIDTH : integer := 16;
+	constant c_S0_WB_ADDRESS_BUS_WIDTH : integer := 10;
+	constant c_S1_WB_ADDRESS_BUS_WIDTH : integer := 10;
 
-	signal M0_DAT_I : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal M0_DAT_O : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal M0_ADR_I : std_logic_vector (c_M0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+	signal M0_DAT_I : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal M0_DAT_O : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal M0_ADR_I : std_logic_vector (c_M0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 	signal M0_ACK_O : std_logic := '0';
 	signal M0_CYC_I : std_logic := '0';
 	signal M0_STB_I : std_logic := '0';
 	signal M0_ERR_O : std_logic := '0';
 	signal M0_WE_I : std_logic := '0';
 
-	signal S0_DAT_O : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal S0_DAT_I : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal S0_ADR_O : std_logic_vector (c_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+	signal S0_DAT_O : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal S0_DAT_I : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal S0_ADR_O : std_logic_vector (c_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 	signal S0_ACK_I : std_logic := '0';
 	signal S0_CYC_O : std_logic := '0';
 	signal S0_STB_O : std_logic := '0';
 	signal S0_ERR_I : std_logic := '0';
 	signal S0_WE_O : std_logic := '0';
 
-	signal S1_DAT_O : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal S1_DAT_I : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal S1_ADR_O : std_logic_vector (c_S1_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+	signal S1_DAT_O : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal S1_DAT_I : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal S1_ADR_O : std_logic_vector (c_S1_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 	signal S1_ACK_I : std_logic := '0';
 	signal S1_CYC_O : std_logic := '0';
 	signal S1_STB_O : std_logic := '0';
@@ -64,10 +64,10 @@ architecture behave of intercon_tb is
 	-- Component declaration for the UUT
 	component intercon is
 		generic (
-			g_WB_DATA_BUS_WITDH : integer := 8;
-			g_M0_WB_ADDRESS_BUS_WITDH : integer := 16;
-			g_S0_WB_ADDRESS_BUS_WITDH : integer := 10;
-			g_S1_WB_ADDRESS_BUS_WITDH : integer := 10;
+			g_WB_DATA_BUS_WIDTH : integer := 8;
+			g_M0_WB_ADDRESS_BUS_WIDTH : integer := 16;
+			g_S0_WB_ADDRESS_BUS_WIDTH : integer := 10;
+			g_S1_WB_ADDRESS_BUS_WIDTH : integer := 10;
 
 			-- address space
 			g_S0_ADDRESS_START : integer := 16#0#;
@@ -82,9 +82,9 @@ architecture behave of intercon_tb is
 			i_wb_clk : in std_logic;
 
 			-- master interface (wishbown slave)
-			i_m0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_m0_wb_adr : in std_logic_vector (g_M0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			i_m0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_m0_wb_adr : in std_logic_vector (g_M0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			o_m0_wb_ack : out std_logic;
 			i_m0_wb_cyc : in std_logic;
 			i_m0_wb_stb : in std_logic;
@@ -92,9 +92,9 @@ architecture behave of intercon_tb is
 			i_m0_wb_we : in std_logic;
 
 			-- slave 0 interface (wishbown master)
-			o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_s0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_s0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			i_s0_wb_ack : in std_logic;
 			o_s0_wb_cyc : out std_logic;
 			o_s0_wb_stb : out std_logic;
@@ -102,9 +102,9 @@ architecture behave of intercon_tb is
 			o_s0_wb_we : out std_logic;
 
 			-- slave 1 interface (wishbown master)
-			o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_s1_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_s1_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			i_s1_wb_ack : in std_logic;
 			o_s1_wb_cyc : out std_logic;
 			o_s1_wb_stb : out std_logic;
@@ -168,15 +168,15 @@ process
 		testPhaseCounter <= 0;
 
 		-- reset testbench
-		M0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(0, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(0, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '0';
 		M0_STB_I <= '0';
 		M0_WE_I <= '0';
-		S0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
+		S0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 		S0_ACK_I <= '0';
 		S0_ERR_I <= '0';
-		S1_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
+		S1_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 		S1_ACK_I <= '0';
 		S1_ERR_I <= '0';
 
@@ -204,8 +204,8 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#0#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#0#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '0';
@@ -217,12 +217,12 @@ process
 
 		-- Check output on Slave 0
 		assert S0_CYC_O = '1' and S0_CYC_O = '1' and S0_WE_O = '0' report "Interface Slave 0 not active!" severity warning;
-		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WITDH)) report "S0_ADR_O not correct!" severity warning;
+		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WIDTH)) report "S0_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
 		-- Set input on Slave 0
-		S0_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH));
+		S0_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH));
 		S0_ACK_I <= '1';
 		S0_ERR_I <= '0';
 
@@ -232,13 +232,13 @@ process
 
 		-- Check output on Slave 0
 		assert S0_CYC_O = '1' and S0_CYC_O = '1' and S0_WE_O = '0' report "Interface Slave 0 not active!" severity warning;
-		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WITDH)) report "S0_ADR_O not correct!" severity warning;
+		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WIDTH)) report "S0_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
 		-- Set input on Slave 0
 		S0_ACK_I <= '0';
-		S0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
+		S0_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 
 		wait for c_CLOCK_PERIOD / 2;
 
@@ -246,7 +246,7 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- Check output on Master 0
-		assert M0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH)) report "M0_DAT_O not correct!" severity warning;
+		assert M0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH)) report "M0_DAT_O not correct!" severity warning;
 		assert M0_ACK_O = '1' report "M0_ACK_O not correct!" severity warning;
 		assert M0_ERR_O = '0' report "M0_ERR_O not correct!" severity warning;
 
@@ -278,12 +278,12 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#3FF#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#3FF#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '1';
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH));
 
 		wait until rising_edge(clock);
 		wait for c_CLOCK_PERIOD / 2;
@@ -292,8 +292,8 @@ process
 
 		-- Check output on Slave 0
 		assert S0_CYC_O = '1' and S0_CYC_O = '1' and S0_WE_O = '1' report "Interface Slave 0 not active!" severity warning;
-		assert S0_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S0_WB_ADDRESS_BUS_WITDH)) report "S0_ADR_O not correct!" severity warning;
-		assert S0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH)) report "M0_DAT_O not correct!" severity warning;
+		assert S0_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S0_WB_ADDRESS_BUS_WIDTH)) report "S0_ADR_O not correct!" severity warning;
+		assert S0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH)) report "M0_DAT_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -307,8 +307,8 @@ process
 
 		-- Check output on Slave 0
 		assert S0_CYC_O = '1' and S0_CYC_O = '1' and S0_WE_O = '1' report "Interface Slave 0 not active!" severity warning;
-		assert S0_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S0_WB_ADDRESS_BUS_WITDH)) report "S0_ADR_O not correct!" severity warning;
-		assert S0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH)) report "M0_DAT_O not correct!" severity warning;
+		assert S0_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S0_WB_ADDRESS_BUS_WIDTH)) report "S0_ADR_O not correct!" severity warning;
+		assert S0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH)) report "M0_DAT_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -352,8 +352,8 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#400#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#400#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '0';
@@ -365,12 +365,12 @@ process
 
 		-- Check output on Slave 1
 		assert S1_CYC_O = '1' and S1_CYC_O = '1' and S1_WE_O = '0' report "Interface Slave 1 not active!" severity warning;
-		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WITDH)) report "S1_ADR_O not correct!" severity warning;
+		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WIDTH)) report "S1_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
 		-- Set input on Slave 0
-		S1_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH));
+		S1_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH));
 		S1_ACK_I <= '1';
 		S1_ERR_I <= '0';
 
@@ -380,13 +380,13 @@ process
 
 		-- Check output on Slave 0
 		assert S1_CYC_O = '1' and S1_CYC_O = '1' and S1_WE_O = '0' report "Interface Slave 1 not active!" severity warning;
-		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WITDH)) report "S1_ADR_O not correct!" severity warning;
+		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WIDTH)) report "S1_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
 		-- Set input on Slave 0
 		S1_ACK_I <= '0';
-		S1_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
+		S1_DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 
 		wait for c_CLOCK_PERIOD / 2;
 
@@ -394,7 +394,7 @@ process
 		assert S0_CYC_O = '0' and S0_CYC_O = '0' and S0_WE_O = '0' report "Interface Slave 0 not idle!" severity warning;
 
 		-- Check output on Master 0
-		assert M0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH)) report "M0_DAT_O not correct!" severity warning;
+		assert M0_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH)) report "M0_DAT_O not correct!" severity warning;
 		assert M0_ACK_O = '1' report "M0_ACK_O not correct!" severity warning;
 		assert M0_ERR_O = '0' report "M0_ERR_O not correct!" severity warning;
 
@@ -426,12 +426,12 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#7FF#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#7FF#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '1';
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH));
 
 		wait until rising_edge(clock);
 		wait for c_CLOCK_PERIOD / 2;
@@ -440,8 +440,8 @@ process
 
 		-- Check output on Slave 0
 		assert S1_CYC_O = '1' and S1_CYC_O = '1' and S1_WE_O = '1' report "Interface Slave 1 not active!" severity warning;
-		assert S1_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S1_WB_ADDRESS_BUS_WITDH)) report "S1_ADR_O not correct!" severity warning;
-		assert S1_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH)) report "S1_DAT_O not correct!" severity warning;
+		assert S1_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S1_WB_ADDRESS_BUS_WIDTH)) report "S1_ADR_O not correct!" severity warning;
+		assert S1_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH)) report "S1_DAT_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -455,8 +455,8 @@ process
 
 		-- Check output on Slave 0
 		assert S1_CYC_O = '1' and S1_CYC_O = '1' and S1_WE_O = '1' report "Interface Slave 1 not active!" severity warning;
-		assert S1_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S1_WB_ADDRESS_BUS_WITDH)) report "S1_ADR_O not correct!" severity warning;
-		assert S1_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WITDH)) report "S1_DAT_O not correct!" severity warning;
+		assert S1_ADR_O = std_logic_vector(to_unsigned(16#3FF#, c_S1_WB_ADDRESS_BUS_WIDTH)) report "S1_ADR_O not correct!" severity warning;
+		assert S1_DAT_O = std_logic_vector(to_unsigned(16#AB#, c_WB_DATA_BUS_WIDTH)) report "S1_DAT_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -500,8 +500,8 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#0#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#0#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '0';
@@ -513,12 +513,12 @@ process
 
 		-- Check output on Slave 0
 		assert S0_CYC_O = '1' and S0_CYC_O = '1' and S0_WE_O = '0' report "Interface Slave 0 not active!" severity warning;
-		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WITDH)) report "0 S0_ADR_O not correct!" severity warning;
+		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WIDTH)) report "0 S0_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
 		-- Set input on Slave 0
-		S0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
+		S0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
 		S0_ACK_I <= '0';
 		S0_ERR_I <= '1';
 
@@ -528,7 +528,7 @@ process
 
 		-- Check output on Slave 0
 		assert S0_CYC_O = '1' and S0_CYC_O = '1' and S0_WE_O = '0' report "Interface Slave 0 not active!" severity warning;
-		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WITDH)) report "S0_ADR_O not correct!" severity warning;
+		assert S0_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S0_WB_ADDRESS_BUS_WIDTH)) report "S0_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -540,7 +540,7 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- Check output on Master 0
-		assert M0_DAT_O = std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH)) report "M0_DAT_O not correct!" severity warning;
+		assert M0_DAT_O = std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH)) report "M0_DAT_O not correct!" severity warning;
 		assert M0_ACK_O = '0' report "M0_ACK_O not correct!" severity warning;
 		assert M0_ERR_O = '1' report "M0_ERR_O not correct!" severity warning;
 
@@ -572,8 +572,8 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#400#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#400#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '0';
@@ -585,12 +585,12 @@ process
 
 		-- Check output on Slave 1
 		assert S1_CYC_O = '1' and S1_CYC_O = '1' and S1_WE_O = '0' report "Interface Slave 1 not active!" severity warning;
-		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WITDH)) report "S1_ADR_O not correct!" severity warning;
+		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WIDTH)) report "S1_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
 		-- Set input on Slave 0
-		S1_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
+		S1_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
 		S1_ACK_I <= '0';
 		S1_ERR_I <= '1';
 
@@ -600,7 +600,7 @@ process
 
 		-- Check output on Slave 0
 		assert S1_CYC_O = '1' and S1_CYC_O = '1' and S1_WE_O = '0' report "Interface Slave 1 not active!" severity warning;
-		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WITDH)) report "S1_ADR_O not correct!" severity warning;
+		assert S1_ADR_O = std_logic_vector(to_unsigned(16#0#, c_S1_WB_ADDRESS_BUS_WIDTH)) report "S1_ADR_O not correct!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -612,7 +612,7 @@ process
 		assert S0_CYC_O = '0' and S0_CYC_O = '0' and S0_WE_O = '0' report "Interface Slave 0 not idle!" severity warning;
 
 		-- Check output on Master 0
-		assert M0_DAT_O = std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH)) report "M0_DAT_O not correct!" severity warning;
+		assert M0_DAT_O = std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH)) report "M0_DAT_O not correct!" severity warning;
 		assert M0_ACK_O = '0' report "M0_ACK_O not correct!" severity warning;
 		assert M0_ERR_O = '1' report "M0_ERR_O not correct!" severity warning;
 
@@ -644,8 +644,8 @@ process
 		assert S1_CYC_O = '0' and S1_CYC_O = '0' and S1_WE_O = '0' report "Interface Slave 1 not idle!" severity warning;
 
 		-- set master signals
-		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
-		M0_ADR_I <= std_logic_vector(to_unsigned(16#800#, c_M0_WB_ADDRESS_BUS_WITDH));
+		M0_DAT_I <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
+		M0_ADR_I <= std_logic_vector(to_unsigned(16#800#, c_M0_WB_ADDRESS_BUS_WIDTH));
 		M0_CYC_I <= '1';
 		M0_STB_I <= '1';
 		M0_WE_I <= '0';

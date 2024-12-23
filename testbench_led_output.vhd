@@ -25,12 +25,12 @@ architecture behave of led_output_tb is
 	signal testPhaseCounter: natural range 0 to 255;
 
 	-- wishbone interfaces of the UUT
-	constant c_WB_DATA_BUS_WITDH : integer := 8;
-	constant c_WB_ADDRESS_BUS_WITDH : integer := 10;
+	constant c_WB_DATA_BUS_WIDTH : integer := 8;
+	constant c_WB_ADDRESS_BUS_WIDTH : integer := 10;
 
-	signal DAT_I : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal DAT_O : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal ADR_I : std_logic_vector (c_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+	signal DAT_I : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal DAT_O : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal ADR_I : std_logic_vector (c_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 	signal ACK_O : std_logic := '0';
 	signal CYC_I : std_logic := '0';
 	signal STB_I : std_logic := '0';
@@ -52,14 +52,14 @@ architecture behave of led_output_tb is
 	signal led_7 : std_logic := '0';
 
 	-- internal signals of the test bench
-	signal data : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal address : std_logic_vector (c_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+	signal data : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal address : std_logic_vector (c_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 
 	-- Component declaration for the UUT
 	component led_output is
 		generic (
-			g_WB_DATA_BUS_WITDH : integer := 8;
-			g_WB_ADDRESS_BUS_WITDH : integer := 10
+			g_WB_DATA_BUS_WIDTH : integer := 8;
+			g_WB_ADDRESS_BUS_WIDTH : integer := 10
 			);
 		port (
 			-- shared signals
@@ -67,9 +67,9 @@ architecture behave of led_output_tb is
 			i_wb_clk : in std_logic;
 
 			-- wishbone interface (slave)
-			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			o_wb_ack : out std_logic;
 			i_wb_cyc : in std_logic;
 			i_wb_stb : in std_logic;
@@ -133,14 +133,14 @@ process
 		testPhaseCounter <= 0;
 
 		-- reset testbench
-		DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-		ADR_I <= std_logic_vector(to_unsigned(0, c_WB_ADDRESS_BUS_WITDH));
+		DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+		ADR_I <= std_logic_vector(to_unsigned(0, c_WB_ADDRESS_BUS_WIDTH));
 		CYC_I <= '0';
 		STB_I <= '0';
 		WE_I <= '0';
 
-		address <= std_logic_vector(to_unsigned(0, c_WB_ADDRESS_BUS_WITDH));
-		data <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
+		address <= std_logic_vector(to_unsigned(0, c_WB_ADDRESS_BUS_WIDTH));
+		data <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 
 		-- reset led states
 
@@ -161,8 +161,8 @@ process
 		report "UUT not reset!" severity warning;
 	end procedure;
 
-	procedure Write_Value (signal i_address : in std_logic_vector (c_WB_ADDRESS_BUS_WITDH - 1 downto 0);
-	                       signal i_data : in std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0)
+	procedure Write_Value (signal i_address : in std_logic_vector (c_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
+	                       signal i_data : in std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0)
 	                       ) is
 	begin
 		ADR_I <= i_address;
@@ -184,8 +184,8 @@ process
 		WE_I <= '0';
 	end procedure;
 
-	procedure Read_Value (signal i_address : in std_logic_vector (c_WB_ADDRESS_BUS_WITDH - 1 downto 0);
-	                      signal o_data : out std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0)
+	procedure Read_Value (signal i_address : in std_logic_vector (c_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
+	                      signal o_data : out std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0)
 	                      ) is
 	begin
 		ADR_I <= i_address;
@@ -214,8 +214,8 @@ process
 		wait until rising_edge(clock);
 
 		-- Set LED 0 to on
-		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WITDH));
-		data <= std_logic_vector(to_unsigned(16#1#, c_WB_DATA_BUS_WITDH));
+		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WIDTH));
+		data <= std_logic_vector(to_unsigned(16#1#, c_WB_DATA_BUS_WIDTH));
 		wait until rising_edge(clock);
 		Write_Value(address, data);
 		wait for c_CLOCK_PERIOD / 2;
@@ -224,8 +224,8 @@ process
 		wait until rising_edge(clock);
 
 		-- Set LED 0 to off
-		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WITDH));
-		data <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WITDH));
+		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WIDTH));
+		data <= std_logic_vector(to_unsigned(16#0#, c_WB_DATA_BUS_WIDTH));
 		wait until rising_edge(clock);
 		Write_Value(address, data);
 		wait for c_CLOCK_PERIOD / 2;
@@ -240,11 +240,11 @@ process
 
 		-- The register value of LED 0 is '1' if the LED is switched off
 		-- Read register Value
-		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WITDH));
+		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WIDTH));
 		wait until rising_edge(clock);
 		Read_Value(address, data);
 		wait for c_CLOCK_PERIOD / 2;
-		assert data = std_logic_vector(to_unsigned(16#1#, c_WB_DATA_BUS_WITDH)) report "Register value not correct!" severity warning;
+		assert data = std_logic_vector(to_unsigned(16#1#, c_WB_DATA_BUS_WIDTH)) report "Register value not correct!" severity warning;
 	end procedure;
 
 	procedure Read_Invalid_Address is
@@ -253,7 +253,7 @@ process
 		Reset_Testbench;
 		wait until rising_edge(clock);
 
-		ADR_I <= std_logic_vector(to_unsigned(8, c_WB_ADDRESS_BUS_WITDH));
+		ADR_I <= std_logic_vector(to_unsigned(8, c_WB_ADDRESS_BUS_WIDTH));
 		CYC_I <= '1';
 		STB_I <= '1';
 		WE_I <= '1';
@@ -277,7 +277,7 @@ process
 		Reset_Testbench;
 		wait until rising_edge(clock);
 
-		ADR_I <= std_logic_vector(to_unsigned(8, c_WB_ADDRESS_BUS_WITDH));
+		ADR_I <= std_logic_vector(to_unsigned(8, c_WB_ADDRESS_BUS_WIDTH));
 		CYC_I <= '1';
 		STB_I <= '1';
 		WE_I <= '0';

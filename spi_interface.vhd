@@ -50,8 +50,8 @@ use ieee.numeric_std.all;
 
 entity spi_interface is
 	generic (
-		g_WB_ADDRESS_BUS_WITDH : integer := 16;
-		g_WB_DATA_BUS_WITDH : integer := 8
+		g_WB_ADDRESS_BUS_WIDTH : integer := 16;
+		g_WB_DATA_BUS_WIDTH : integer := 8
 		);
 	port (
 		-- spi interface
@@ -63,9 +63,9 @@ entity spi_interface is
 		-- wishbone interface
 		i_wb_rst : in std_logic; -- High active
 		i_wb_clk : in std_logic; -- For simplicity this module also uses the WISHBONE clock for it's internal logic
-		o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		o_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		o_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		i_wb_ack : in std_logic;
 		o_wb_cyc : out std_logic;
 		o_wb_stb : out std_logic;
@@ -90,8 +90,8 @@ architecture rtl of spi_interface is
 	signal r_addressBitCounter : integer range 0 to c_NUMBER_OF_ADDRESS_BITS - 1 := c_NUMBER_OF_ADDRESS_BITS - 1;
 	signal r_dataBitCounter : integer range 0 to c_NUMBER_OF_DATA_BITS - 1 := c_NUMBER_OF_DATA_BITS - 1;
 
-	signal r_address : std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH)) ;
-	signal r_data : std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
+	signal r_address : std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH)) ;
+	signal r_data : std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
 	signal r_perform_write : std_logic;
 	signal r_perform_read : std_logic;
 begin
@@ -100,11 +100,11 @@ begin
 	-- TODO: put the following into a package
 	procedure p_WISHBONE_SINGLE_WRITE (
 		signal r_perform_write : inout std_logic;
-		signal r_address : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
-		signal r_data : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
+		signal r_address : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
+		signal r_data : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
 
-		signal r_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		signal r_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		signal r_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		signal r_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		signal r_wb_ack : in std_logic;
 		signal r_wb_cyc : out std_logic;
 		signal r_wb_stb : out std_logic;
@@ -123,8 +123,8 @@ begin
 				r_wb_cyc <= '0';
 				r_wb_stb <= '0';
 				r_wb_we <= '0';
-				r_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
-				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH));
+				r_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
+				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH));
 
 				r_perform_write <= '0';
 			end if;
@@ -133,11 +133,11 @@ begin
 
 	procedure p_WISHBONE_SINGLE_READ (
 		signal r_perform_read : inout std_logic;
-		signal r_address : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
-		signal r_data : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
+		signal r_address : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
+		signal r_data : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
 
-		signal r_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		signal r_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		signal r_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		signal r_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		signal r_wb_ack : in std_logic;
 		signal r_wb_cyc : out std_logic;
 		signal r_wb_stb : out std_logic;
@@ -155,7 +155,7 @@ begin
 				r_wb_cyc <= '0';
 				r_wb_stb <= '0';
 				r_wb_we <= '0';
-				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH));
+				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH));
 
 				r_perform_read <= '0';
 			end if;
@@ -172,16 +172,16 @@ begin
 				r_addressBitCounter <= c_NUMBER_OF_ADDRESS_BITS - 1;
 				r_dataBitCounter <= c_NUMBER_OF_DATA_BITS - 1;
 
-				r_address <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH));
-				r_data <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
+				r_address <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH));
+				r_data <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
 
 				r_OPERATION_TYPE <= READ_OPERATION;
 				r_perform_write <= '0';
 				r_perform_read <= '0';
 
 				-- Reset Wishbone interface
-				o_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
-				o_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WITDH));
+				o_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
+				o_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH));
 				o_wb_cyc <= '0';
 				o_wb_stb <= '0';
 				o_wb_we <= '0';
@@ -193,7 +193,7 @@ begin
 					o_miso <= '0';
 
 					r_OPERATION_TYPE <= READ_OPERATION;
-					r_data <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
+					r_data <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
 				else
 					if (r_sclk_last = '0' and i_sclk = '1') then
 						if (r_PACKET_PHASE = OPCODE) then

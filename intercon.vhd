@@ -21,10 +21,10 @@ use ieee.numeric_std.all;
 
 entity intercon is
 	generic (
-		g_WB_DATA_BUS_WITDH : integer := 8;
-		g_M0_WB_ADDRESS_BUS_WITDH : integer := 16;
-		g_S0_WB_ADDRESS_BUS_WITDH : integer := 10;
-		g_S1_WB_ADDRESS_BUS_WITDH : integer := 10;
+		g_WB_DATA_BUS_WIDTH : integer := 8;
+		g_M0_WB_ADDRESS_BUS_WIDTH : integer := 16;
+		g_S0_WB_ADDRESS_BUS_WIDTH : integer := 10;
+		g_S1_WB_ADDRESS_BUS_WIDTH : integer := 10;
 
 		-- address space
 		g_S0_ADDRESS_START : integer := 16#0#;
@@ -39,9 +39,9 @@ entity intercon is
 		i_wb_clk : in std_logic;
 
 		-- master interface (wishbown slave)
-		i_m0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		i_m0_wb_adr : in std_logic_vector (g_M0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		i_m0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		i_m0_wb_adr : in std_logic_vector (g_M0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		o_m0_wb_ack : out std_logic;
 		i_m0_wb_cyc : in std_logic;
 		i_m0_wb_stb : in std_logic;
@@ -49,9 +49,9 @@ entity intercon is
 		i_m0_wb_we : in std_logic;
 
 		-- slave 0 interface (wishbown master)
-		o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		i_s0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		i_s0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		i_s0_wb_ack : in std_logic;
 		o_s0_wb_cyc : out std_logic;
 		o_s0_wb_stb : out std_logic;
@@ -59,9 +59,9 @@ entity intercon is
 		o_s0_wb_we : out std_logic;
 
 		-- slave 1 interface (wishbown master)
-		o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		i_s1_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		i_s1_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		i_s1_wb_ack : in std_logic;
 		o_s1_wb_cyc : out std_logic;
 		o_s1_wb_stb : out std_logic;
@@ -76,42 +76,42 @@ architecture rtl of intercon is
 	signal r_termination_signaled : std_logic := '0';
 
 	procedure p_DEACTIVATE_M0 (
-		signal o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
+		signal o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
 		signal o_m0_wb_ack : out std_logic;
 		signal o_m0_wb_err : out std_logic
 	) is
 	begin
-		o_m0_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
+		o_m0_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
 		o_m0_wb_ack <= '0';
 		o_m0_wb_err <= '0';
 	end p_DEACTIVATE_M0;
 
 	-- Note: there is one deactivation function for each slave as each slave may have a diffrent address width
 	procedure p_DEACTIVATE_S0 (
-		signal o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		signal o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		signal o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		signal o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		signal o_s0_wb_cyc : out std_logic;
 		signal o_s0_wb_stb : out std_logic;
 		signal o_s0_wb_we : out std_logic
 	) is
 	begin
-		o_s0_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
-		o_s0_wb_adr <= std_logic_vector(to_unsigned(0, g_S0_WB_ADDRESS_BUS_WITDH));
+		o_s0_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
+		o_s0_wb_adr <= std_logic_vector(to_unsigned(0, g_S0_WB_ADDRESS_BUS_WIDTH));
 		o_s0_wb_cyc <= '0';
 		o_s0_wb_stb <= '0';
 		o_s0_wb_we <= '0';
 	end p_DEACTIVATE_S0;
 
 	procedure p_DEACTIVATE_S1 (
-		signal o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-		signal o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+		signal o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+		signal o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		signal o_s1_wb_cyc : out std_logic;
 		signal o_s1_wb_stb : out std_logic;
 		signal o_s1_wb_we : out std_logic
 	) is
 	begin
-		o_s1_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WITDH));
-		o_s1_wb_adr <= std_logic_vector(to_unsigned(0, g_S0_WB_ADDRESS_BUS_WITDH));
+		o_s1_wb_dat <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
+		o_s1_wb_adr <= std_logic_vector(to_unsigned(0, g_S0_WB_ADDRESS_BUS_WIDTH));
 		o_s1_wb_cyc <= '0';
 		o_s1_wb_stb <= '0';
 		o_s1_wb_we <= '0';
@@ -140,7 +140,7 @@ begin
 							-- connect s0 to m0
 							o_s0_wb_dat <= i_m0_wb_dat;
 							o_m0_wb_dat <= i_s0_wb_dat;
-							o_s0_wb_adr <= i_m0_wb_adr(g_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+							o_s0_wb_adr <= i_m0_wb_adr(g_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 							o_s0_wb_cyc <= i_m0_wb_cyc;
 							o_s0_wb_stb <= i_m0_wb_stb;
 							o_s0_wb_we <= i_m0_wb_we;
@@ -168,7 +168,7 @@ begin
 							-- connect s1 to m0
 							o_s1_wb_dat <= i_m0_wb_dat;
 							o_m0_wb_dat <= i_s1_wb_dat;
-							o_s1_wb_adr <= i_m0_wb_adr(g_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+							o_s1_wb_adr <= i_m0_wb_adr(g_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 							o_s1_wb_cyc <= i_m0_wb_cyc;
 							o_s1_wb_stb <= i_m0_wb_stb;
 							o_s1_wb_we <= i_m0_wb_we;

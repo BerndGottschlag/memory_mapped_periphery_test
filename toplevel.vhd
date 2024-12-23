@@ -52,10 +52,10 @@ architecture rtl of toplevel is
 	signal r_reset: std_logic := '0'; -- TODO: connect to input pin and r_pll_lock
 
 	-- Wishbone interfaces
-	constant c_WB_DATA_BUS_WITDH : integer := 8;
-	constant c_M0_WB_ADDRESS_BUS_WITDH : integer := 16;
-	constant c_S0_WB_ADDRESS_BUS_WITDH : integer := 10;
-	constant c_S1_WB_ADDRESS_BUS_WITDH : integer := 10;
+	constant c_WB_DATA_BUS_WIDTH : integer := 8;
+	constant c_M0_WB_ADDRESS_BUS_WIDTH : integer := 16;
+	constant c_S0_WB_ADDRESS_BUS_WIDTH : integer := 10;
+	constant c_S1_WB_ADDRESS_BUS_WIDTH : integer := 10;
 
 	-- synchronized input signals
 	signal r_cs_sync: std_logic;
@@ -68,9 +68,9 @@ architecture rtl of toplevel is
 	signal r_button_3_sync : std_logic;
 
 	-- SPI interface (master)
-	signal r_m0_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-	signal r_m0_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-	signal r_m0_wb_adr: std_logic_vector (c_M0_WB_ADDRESS_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_M0_WB_ADDRESS_BUS_WITDH));
+	signal r_m0_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+	signal r_m0_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+	signal r_m0_wb_adr: std_logic_vector (c_M0_WB_ADDRESS_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_M0_WB_ADDRESS_BUS_WIDTH));
 	signal r_m0_wb_ack: std_logic := '0';
 	signal r_m0_wb_cyc: std_logic := '0';
 	signal r_m0_wb_stb: std_logic := '0';
@@ -78,9 +78,9 @@ architecture rtl of toplevel is
 	signal r_m0_wb_we: std_logic := '0';
 
 	-- BUTTON_INPUT_INSTANCE (slave 0)
-	signal r_s0_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-	signal r_s0_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-	signal r_s0_wb_adr: std_logic_vector (c_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_S0_WB_ADDRESS_BUS_WITDH));
+	signal r_s0_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+	signal r_s0_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+	signal r_s0_wb_adr: std_logic_vector (c_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_S0_WB_ADDRESS_BUS_WIDTH));
 	signal r_s0_wb_ack: std_logic := '0';
 	signal r_s0_wb_cyc: std_logic := '0';
 	signal r_s0_wb_stb: std_logic := '0';
@@ -88,9 +88,9 @@ architecture rtl of toplevel is
 	signal r_s0_wb_we: std_logic := '0';
 
 	-- LED_OUTPUT_INSTANCE (slave 1)
-	signal r_s1_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-	signal r_s1_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
-	signal r_s1_wb_adr: std_logic_vector (c_S1_WB_ADDRESS_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_S1_WB_ADDRESS_BUS_WITDH));
+	signal r_s1_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+	signal r_s1_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
+	signal r_s1_wb_adr: std_logic_vector (c_S1_WB_ADDRESS_BUS_WIDTH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_S1_WB_ADDRESS_BUS_WIDTH));
 	signal r_s1_wb_ack: std_logic := '0';
 	signal r_s1_wb_cyc: std_logic := '0';
 	signal r_s1_wb_stb: std_logic := '0';
@@ -156,8 +156,8 @@ architecture rtl of toplevel is
 	-- SPI interface
 	component spi_interface is
 		generic (
-			g_WB_ADDRESS_BUS_WITDH : integer := 16;
-			g_WB_DATA_BUS_WITDH : integer := 8
+			g_WB_ADDRESS_BUS_WIDTH : integer := 16;
+			g_WB_DATA_BUS_WIDTH : integer := 8
 			);
 		port (
 			-- spi interface
@@ -169,9 +169,9 @@ architecture rtl of toplevel is
 			-- wishbone interface
 			i_wb_rst : in std_logic; -- High active
 			i_wb_clk : in std_logic; -- For simplicity this module also uses the WISHBONE clock for it's internal logic
-			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			i_wb_ack : in std_logic;
 			o_wb_cyc : out std_logic;
 			o_wb_stb : out std_logic;
@@ -183,10 +183,10 @@ architecture rtl of toplevel is
 	-- Intercon
 	component intercon is
 		generic (
-			g_WB_DATA_BUS_WITDH : integer := 8;
-			g_M0_WB_ADDRESS_BUS_WITDH : integer := 16;
-			g_S0_WB_ADDRESS_BUS_WITDH : integer := 10;
-			g_S1_WB_ADDRESS_BUS_WITDH : integer := 10;
+			g_WB_DATA_BUS_WIDTH : integer := 8;
+			g_M0_WB_ADDRESS_BUS_WIDTH : integer := 16;
+			g_S0_WB_ADDRESS_BUS_WIDTH : integer := 10;
+			g_S1_WB_ADDRESS_BUS_WIDTH : integer := 10;
 
 			-- address space
 			g_S0_ADDRESS_START : integer := 16#0#;
@@ -201,9 +201,9 @@ architecture rtl of toplevel is
 			i_wb_clk : in std_logic;
 
 			-- master interface (wishbown slave)
-			i_m0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_m0_wb_adr : in std_logic_vector (g_M0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			i_m0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_m0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_m0_wb_adr : in std_logic_vector (g_M0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			o_m0_wb_ack : out std_logic;
 			i_m0_wb_cyc : in std_logic;
 			i_m0_wb_stb : in std_logic;
@@ -211,9 +211,9 @@ architecture rtl of toplevel is
 			i_m0_wb_we : in std_logic;
 
 			-- slave 0 interface (wishbown master)
-			o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_s0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			o_s0_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_s0_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_s0_wb_adr : out std_logic_vector (g_S0_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			i_s0_wb_ack : in std_logic;
 			o_s0_wb_cyc : out std_logic;
 			o_s0_wb_stb : out std_logic;
@@ -221,9 +221,9 @@ architecture rtl of toplevel is
 			o_s0_wb_we : out std_logic;
 
 			-- slave 1 interface (wishbown master)
-			o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_s1_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			o_s1_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_s1_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_s1_wb_adr : out std_logic_vector (g_S1_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			i_s1_wb_ack : in std_logic;
 			o_s1_wb_cyc : out std_logic;
 			o_s1_wb_stb : out std_logic;
@@ -235,8 +235,8 @@ architecture rtl of toplevel is
 	-- button input
 	component button_input is
 		generic (
-			g_WB_DATA_BUS_WITDH : integer := 8;
-			g_WB_ADDRESS_BUS_WITDH : integer := 10
+			g_WB_DATA_BUS_WIDTH : integer := 8;
+			g_WB_ADDRESS_BUS_WIDTH : integer := 10
 			);
 		port (
 			-- shared signals
@@ -244,9 +244,9 @@ architecture rtl of toplevel is
 			i_wb_clk : in std_logic;
 
 			-- wishbone interface (slave)
-			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			o_wb_ack : out std_logic;
 			i_wb_cyc : in std_logic;
 			i_wb_stb : in std_logic;
@@ -264,8 +264,8 @@ architecture rtl of toplevel is
 	-- LED output
 	component led_output is
 		generic (
-			g_WB_DATA_BUS_WITDH : integer := 8;
-			g_WB_ADDRESS_BUS_WITDH : integer := 10
+			g_WB_DATA_BUS_WIDTH : integer := 8;
+			g_WB_ADDRESS_BUS_WIDTH : integer := 10
 			);
 		port (
 			-- shared signals
@@ -273,9 +273,9 @@ architecture rtl of toplevel is
 			i_wb_clk : in std_logic;
 
 			-- wishbone interface (slave)
-			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_wb_adr : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			o_wb_ack : out std_logic;
 			i_wb_cyc : in std_logic;
 			i_wb_stb : in std_logic;

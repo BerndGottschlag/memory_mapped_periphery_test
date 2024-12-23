@@ -28,12 +28,12 @@ architecture behave of spi_interface_tb is
 	signal bitCounter : natural range 0 to 255;
 
 	-- wishbone interface of the UUT
-	constant c_WB_ADDRESS_BUS_WITDH : integer := 16;
-	constant c_WB_DATA_BUS_WITDH : integer := 8;
+	constant c_WB_ADDRESS_BUS_WIDTH : integer := 16;
+	constant c_WB_DATA_BUS_WIDTH : integer := 8;
 
-	signal DAT_I : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal DAT_O : std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0);
-	signal ADR_O : std_logic_vector (c_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+	signal DAT_I : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal DAT_O : std_logic_vector (c_WB_DATA_BUS_WIDTH - 1 downto 0);
+	signal ADR_O : std_logic_vector (c_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 	signal ACK_I : std_logic := '0';
 	signal CYC_O : std_logic := '0';
 	signal STB_O : std_logic := '0';
@@ -56,8 +56,8 @@ architecture behave of spi_interface_tb is
 	-- Component declaration for the UUT
 	component spi_interface is
 		generic (
-			g_WB_ADDRESS_BUS_WITDH : integer := 16;
-			g_WB_DATA_BUS_WITDH : integer := 8
+			g_WB_ADDRESS_BUS_WIDTH : integer := 16;
+			g_WB_DATA_BUS_WIDTH : integer := 8
 			);
 		port (
 			-- spi interface
@@ -69,9 +69,9 @@ architecture behave of spi_interface_tb is
 			-- wishbone interface
 			i_wb_rst : in std_logic; -- High active
 			i_wb_clk : in std_logic; -- For simplicity this module also uses the WISHBONE clock for its internal logic
-			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WITDH - 1 downto 0);
-			o_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WITDH - 1 downto 0);
+			o_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			i_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
+			o_wb_adr : out std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 			i_wb_ack : in std_logic;
 			o_wb_cyc : out std_logic;
 			o_wb_stb : out std_logic;
@@ -131,7 +131,7 @@ process
 		testPhaseCounter <= 0;
 		bitCounter <= 0;
 
-		DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
+		DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 		ACK_I <= '0';
 		ERR_I <= '0';
 	end procedure;
@@ -199,7 +199,7 @@ process
 			wait for c_CLOCK_PERIOD;
 			if (CYC_O = '1') then
 				ACK_I <= '1';
-				DAT_I <= std_logic_vector(to_unsigned(16#BB#, c_WB_DATA_BUS_WITDH));
+				DAT_I <= std_logic_vector(to_unsigned(16#BB#, c_WB_DATA_BUS_WIDTH));
 				wait for c_CLOCK_PERIOD;
 				ACK_I <= '0';
 			end if;
