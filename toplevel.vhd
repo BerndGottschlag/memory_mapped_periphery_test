@@ -2,7 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- TODO: global reset
 
 entity toplevel is
 	port (
@@ -49,6 +48,16 @@ architecture rtl of toplevel is
 	constant c_S0_WB_ADDRESS_BUS_WITDH : integer := 10;
 	constant c_S1_WB_ADDRESS_BUS_WITDH : integer := 10;
 
+	-- synchronized input signals
+	signal r_cs_sync: std_logic;
+	signal r_sclk_sync: std_logic;
+	signal r_mosi_sync: std_logic;
+
+	signal r_button_0_sync : std_logic;
+	signal r_button_1_sync : std_logic;
+	signal r_button_2_sync : std_logic;
+	signal r_button_3_sync : std_logic;
+
 	-- SPI interface (master)
 	signal r_m0_wb_dat_miso: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
 	signal r_m0_wb_dat_mosi: std_logic_vector (c_WB_DATA_BUS_WITDH - 1 downto 0) := std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WITDH));
@@ -78,6 +87,37 @@ architecture rtl of toplevel is
 	signal r_s1_wb_stb: std_logic := '0';
 	signal r_s1_wb_err: std_logic := '0';
 	signal r_s1_wb_we: std_logic := '0';
+
+	-- Synchronizer for asynchronous inputs
+	component asynchronous_input_synchronizer is
+		port (
+			i_clock: in std_logic;
+
+			-- unsynchronized inputs
+			-- SPI interface
+			i_cs: in std_logic;
+			i_sclk: in std_logic;
+			i_mosi: in std_logic;
+
+			-- buttons
+			i_button_0: in std_logic;
+			i_button_1: in std_logic;
+			i_button_2: in std_logic;
+			i_button_3: in std_logic;
+
+			-- synchronized outputs
+			-- SPI interface
+			o_cs: out std_logic;
+			o_sclk: out std_logic;
+			o_mosi: out std_logic;
+
+			-- buttons
+			o_button_0: out std_logic;
+			o_button_1: out std_logic;
+			o_button_2: out std_logic;
+			o_button_3: out std_logic
+		);
+	end component asynchronous_input_synchronizer;
 
 	-- PLL
 	component pll is
@@ -246,6 +286,35 @@ architecture rtl of toplevel is
 	end component led_output;
 begin
 
+	ASYNCHRONOUS_INPUT_SYNCHRONIZER_INSTANCE : asynchronous_input_synchronizer
+		port map (
+			i_clock => r_sys_clk,
+
+			-- unsynchronized inputs
+			-- SPI interface
+			i_cs => i_cs,
+			i_sclk => i_sclk,
+			i_mosi => i_mosi,
+
+			-- buttons
+			i_button_0 => i_button_0,
+			i_button_1 => i_button_1,
+			i_button_2 => i_button_2,
+			i_button_3 => i_button_3,
+
+			-- synchronized outputs
+			-- SPI interface
+			o_cs => r_cs_sync,
+			o_sclk => r_sclk_sync,
+			o_mosi => r_mosi_sync,
+
+			-- buttons
+			o_button_0 => r_button_0_sync,
+			o_button_1 => r_button_1_sync,
+			o_button_2 => r_button_2_sync,
+			o_button_3 => r_button_3_sync
+		);
+
 	PLL_INSTANCE : pll
 		port map (
 			CLK => i_osci_clock,
@@ -270,9 +339,9 @@ begin
 	SPI_INTERFACE_INSTANCE : spi_interface
 		port map (
 			-- spi interface
-			i_cs => i_cs,
-			i_sclk => i_sclk,
-			i_mosi => i_mosi,
+			i_cs => r_cs_sync,
+			i_sclk => r_sclk_sync,
+			i_mosi => r_mosi_sync,
 			o_miso => o_miso,
 
 			-- wishbone interface
@@ -344,10 +413,10 @@ begin
 			i_wb_we => r_s0_wb_we,
 
 			-- button_inputs
-			i_button_0 => i_button_0,
-			i_button_1 => i_button_1,
-			i_button_2 => i_button_2,
-			i_button_3 => i_button_3
+			i_button_0 => r_button_0_sync,
+			i_button_1 => r_button_1_sync,
+			i_button_2 => r_button_2_sync,
+			i_button_3 => r_button_3_sync
 		);
 
 	-- LED output
