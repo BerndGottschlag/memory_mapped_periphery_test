@@ -98,6 +98,7 @@ begin
 		port map (
 			i_osci_clock => osci_clock,
 			i_reset => reset,
+			o_osci_enable => r_osci_enable,
 
 			-- SPI interface
 			i_cs => r_cs,
@@ -262,7 +263,7 @@ process
 
 		Write_Register(r_mode, r_address, r_data);
 		wait until rising_edge(osci_clock);
-		assert r_led_0 = '1' report "LED 0 not switched on!" severity warning;
+		assert r_led_0 = '0' report "LED 0 not switched on!" severity warning;
 
 	end procedure;
 
@@ -281,8 +282,6 @@ process
 		Read_Register(r_mode, r_address, r_data);
 		wait until rising_edge(osci_clock);
 		assert r_data = "00000001" report "Button 0 not read correctly!" severity warning;
-		-- TODO: assert r_data
-		--assert r_led_0 = '1' report "LED 0 not switched on!" severity warning;
 
 	end procedure;
 

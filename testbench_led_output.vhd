@@ -209,7 +209,7 @@ process
 		wait until rising_edge(clock);
 		Write_Value(address, data);
 		wait for c_CLOCK_PERIOD / 2;
-		assert led_0 = '1' report "LED 0 not on!" severity warning;
+		assert led_0 = '0' report "LED 0 not on!" severity warning;
 
 		wait until rising_edge(clock);
 
@@ -219,7 +219,7 @@ process
 		wait until rising_edge(clock);
 		Write_Value(address, data);
 		wait for c_CLOCK_PERIOD / 2;
-		assert led_0 = '0' report "LED 0 not off!" severity warning;
+		assert led_0 = '1' report "LED 0 not off!" severity warning;
 	end procedure;
 
 	procedure Read_State_LED_0 is
@@ -228,16 +228,7 @@ process
 		Reset_Testbench;
 		wait until rising_edge(clock);
 
-		-- Set LED 0 to on so that the register value is /= 0
-		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WITDH));
-		data <= std_logic_vector(to_unsigned(16#1#, c_WB_DATA_BUS_WITDH));
-		wait until rising_edge(clock);
-		Write_Value(address, data);
-		wait for c_CLOCK_PERIOD / 2;
-		assert led_0 = '1' report "LED 0 not on!" severity warning;
-
-		wait until rising_edge(clock);
-
+		-- The register value of LED 0 is '1' if the LED is switched off
 		-- Read register Value
 		address <= std_logic_vector(to_unsigned(16#0#, c_WB_ADDRESS_BUS_WITDH));
 		wait until rising_edge(clock);

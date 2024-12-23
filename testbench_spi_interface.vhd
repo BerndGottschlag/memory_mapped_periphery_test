@@ -168,7 +168,7 @@ process
 
 	procedure Test_Case_Read_Operation is
 	begin
-		testCaseId <= 1;
+		testCaseId <= 2;
 		Reset_Testbench;
 		wait until rising_edge(clock);
 
