@@ -5,6 +5,7 @@
     <Source worklib="work" path="spi_interface.vhd" type="VHDL" langstandard="" include="none"/>
     <Source worklib="work" path="reset_and_clock_control.vhd" type="VHDL" langstandard="" include="none"/>
     <Source worklib="work" path="pll.vhd" type="VHDL" langstandard="" include="none"/>
+    <Source worklib="work" path="asynchronous_input_synchronizer.vhd" type="VHDL" langstandard="" include="none"/>
     <Source worklib="work" path="toplevel.vhd" type="VHDL" langstandard="" include="none"/>
     <Source worklib="work" path="testbench_toplevel.vhd" type="VHDL" langstandard="" include="none"/>
     <SimLib value="pmi_work ovi_xp2"/>

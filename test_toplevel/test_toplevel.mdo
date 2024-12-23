@@ -6,6 +6,7 @@ if {![file exists "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testproj
 	project addfile "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd"
 	project addfile "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/reset_and_clock_control.vhd"
 	project addfile "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/pll.vhd"
+	project addfile "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/asynchronous_input_synchronizer.vhd"
 	project addfile "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/toplevel.vhd"
 	project addfile "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_toplevel.vhd"
 	vlib  work
@@ -17,6 +18,7 @@ if {![file exists "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testproj
 	vcom -work work "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd"
 	vcom -work work "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/reset_and_clock_control.vhd"
 	vcom -work work "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/pll.vhd"
+	vcom -work work "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/asynchronous_input_synchronizer.vhd"
 	vcom -work work "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/toplevel.vhd"
 	vcom -work work "/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_toplevel.vhd"
 } else {

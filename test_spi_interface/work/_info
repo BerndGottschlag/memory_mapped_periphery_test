@@ -7,202 +7,6 @@ R0
 R1
 R0
 R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
-R0
-R1
 !s11e vcom 2024.2 2024.05, May 20 2024
 13
 !s112 1.1
@@ -210,12 +14,12 @@ R1
 !i10e 25
 !i10f 100
 cModel Technology
-Z2 d/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/test_spi_interface
+Z2 d/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/test_spi_interface
 T_opt
-!s110 1732827486
-VR_1zE_knOXJR@MlE[VMOD0
+!s110 1734939489
+VNTc_I3^GlJl2bHNajQ9d41
 04 16 6 work spi_interface_tb behave 1
-=29-f4b520580860-6748d95e-8266d-3eeb
+=5-5a25b83adbf5-67691361-7bd65-34a8
 R1
 !s12f OEM25U2 
 !s12b OEM100
@@ -226,40 +30,40 @@ tCvgOpt 0
 n@_opt
 OL;O;2024.2;79
 Espi_interface
-Z3 w1732827368
+Z3 w1734939285
 Z4 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z6 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 140
+!i122 2
 R2
-Z7 8/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd
-Z8 F/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd
+Z7 8/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd
+Z8 F/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd
 l0
-L41 1
-Veo:4X5K4ei8W1;DE=RZ842
-!s100 >@BH4;G[<WEG=c[3olc[D1
+L51 1
+Vz2:S7mH^0<_?jC0jYg[Xz3
+!s100 lc<k<Ib8?oCCoZGKJDLg73
 Z9 OL;C;2024.2;79
-33
-Z10 !s110 1732827373
+32
+Z10 !s110 1734939456
 !i10b 1
-Z11 !s108 1732827373.000000
-Z12 !s90 -reportprogress|300|-work|work|-2008|-explicit|-vopt|-stats=none|/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd|
-Z13 !s107 /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd|
+Z11 !s108 1734939450.000000
+Z12 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd|
+Z13 !s107 /home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/spi_interface.vhd|
 !i113 0
-Z14 o-work work -2008 -explicit
+Z14 o-work work -2002 -explicit
 Z15 tExplicit 1 CvgOpt 0
 Artl
 R4
 R5
 R6
-DEx4 work 13 spi_interface 0 22 eo:4X5K4ei8W1;DE=RZ842
-!i122 140
-l90
-L69 198
-V4Tj3Il<5RknI97BNhlJGb2
-!s100 Z@BeIY00D?YPX@4?OW8Oa3
+DEx4 work 13 spi_interface 0 22 z2:S7mH^0<_?jC0jYg[Xz3
+!i122 2
+l97
+L77 202
+V1gAQPlW7B:1;^^2eN02[m1
+!s100 BQ>kbkXPkDKUo^k^CbZ>J2
 R9
-33
+32
 R10
 !i10b 1
 R11
@@ -269,25 +73,25 @@ R13
 R14
 R15
 Espi_interface_tb
-Z16 w1732827475
+Z16 w1734939441
 R4
 R5
 R6
-!i122 141
+!i122 3
 R2
-Z17 8/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd
-Z18 F/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd
+Z17 8/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd
+Z18 F/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd
 l0
-L6 1
-VMcXC[3V=LB_lMQZ>L@I:l2
-!s100 2_]Hi_YHiUa^MI40U=CS42
+L16 1
+VUW@fQe6oh9@82@?8Z5^@b3
+!s100 f:R_;Xclk;SmLX^Vj[4:J1
 R9
-33
-Z19 !s110 1732827483
+32
+Z19 !s110 1734939459
 !i10b 1
-Z20 !s108 1732827482.000000
-Z21 !s90 -reportprogress|300|-work|work|-2008|-explicit|-vopt|-stats=none|/home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd|
-Z22 !s107 /home/bernd/Dokumente/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd|
+Z20 !s108 1734939459.000000
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|/home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd|
+Z22 !s107 /home/bernd/dokumente_nextcloud/Projekte/fpga_lernen/testprojekte/memory_mapped_periphery/fpga_workspace/memory_mapped_periphery_test/testbench_spi_interface.vhd|
 !i113 0
 R14
 R15
@@ -295,14 +99,14 @@ Abehave
 R4
 R5
 R6
-DEx4 work 16 spi_interface_tb 0 22 McXC[3V=LB_lMQZ>L@I:l2
-!i122 141
-l76
-L9 214
-VnaTD^_K@]geFjXRK:YZik3
-!s100 aQznN[HK1dhf:oQ1f<X1U3
+DEx4 work 16 spi_interface_tb 0 22 UW@fQe6oh9@82@?8Z5^@b3
+!i122 3
+l83
+L19 209
+VYfK:MQQ[?_8;9TIm<3<H;3
+!s100 E@?M1C7VLAbFTDJJ4DjhL3
 R9
-33
+32
 R19
 !i10b 1
 R20
