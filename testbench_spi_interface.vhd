@@ -22,10 +22,22 @@ architecture behave of spi_interface_tb is
 	-- spi clock
 	constant c_SPI_CLOCK_HALF_PERIOD : time := 10 us; -- 100 kHz clock -> 10 us period -> 5 us half period
 
+	constant c_NUMBER_OF_ADDRESS_BITS: integer := 15;
+	constant c_NUMBER_OF_DATA_BITS: integer := 8;
+
+	constant c_MODE_READ: std_logic := '0';
+	constant c_MODE_WRITE: std_logic := '1';
+
 	-- internal signals of the test bench
 	signal testCaseId: natural range 0 to 255;
 	signal testPhaseCounter: natural range 0 to 255;
 	signal bitCounter : natural range 0 to 255;
+
+	signal r_spi_address: std_logic_vector (c_NUMBER_OF_ADDRESS_BITS - 1 downto 0);
+	signal r_spi_data: std_logic_vector (c_NUMBER_OF_DATA_BITS - 1 downto 0);
+	signal r_data_to_compare: std_logic_vector (c_NUMBER_OF_DATA_BITS - 1 downto 0);
+
+	signal r_debug_unsigned: natural range 0 to 255;
 
 	-- wishbone interface of the UUT
 	constant c_WB_ADDRESS_BUS_WIDTH : integer := 16;
@@ -134,8 +146,43 @@ process
 		DAT_I <= std_logic_vector(to_unsigned(0, c_WB_DATA_BUS_WIDTH));
 		ACK_I <= '0';
 		ERR_I <= '0';
+
+		r_spi_address <= std_logic_vector(to_unsigned(0, c_NUMBER_OF_ADDRESS_BITS));
+		r_spi_data <= std_logic_vector(to_unsigned(0, c_NUMBER_OF_DATA_BITS));
+		r_data_to_compare <= std_logic_vector(to_unsigned(0, c_NUMBER_OF_DATA_BITS));
+
+		wait for c_CLOCK_PERIOD;
 	end procedure;
 	-- TODO: also reset test bench
+
+	procedure Assert_Wishbone_Interface_Idle is
+	begin
+		assert STB_O = '0' report "STB_O not correct!" severity warning;
+		assert CYC_O = '0' report "CYC_O not correct!" severity warning;
+		assert WE_O = '0' report "WE_O not correct!" severity warning;
+	end procedure;
+
+	procedure Assert_Wishbone_Interface_Write(
+		signal i_expected_address: in std_logic_vector (c_NUMBER_OF_ADDRESS_BITS - 1 downto 0);
+		signal i_expected_data: in std_logic_vector (c_NUMBER_OF_DATA_BITS - 1 downto 0)
+	) is
+	begin
+		assert STB_O = '1' report "STB_O not correct!" severity warning;
+		assert CYC_O = '1' report "CYC_O not correct!" severity warning;
+		assert WE_O = '1' report "WE_O not correct!" severity warning;
+		assert ADR_O(c_NUMBER_OF_ADDRESS_BITS - 1 downto 0) = i_expected_address report "Address not correct!" severity warning;
+		assert DAT_O = i_expected_data report "Data not correct!" severity warning;
+	end procedure;
+
+	procedure Assert_Wishbone_Interface_Read(
+		signal i_expected_address: in std_logic_vector (c_NUMBER_OF_ADDRESS_BITS - 1 downto 0)
+	) is
+	begin
+		assert STB_O = '1' report "STB_O not correct!" severity warning;
+		assert CYC_O = '1' report "CYC_O not correct!" severity warning;
+		assert WE_O = '0' report "WE_O not correct!" severity warning;
+		assert ADR_O(c_NUMBER_OF_ADDRESS_BITS - 1 downto 0) = i_expected_address report "Address not correct!" severity warning;
+	end procedure;
 
 
 	-- TODO: asserts on internal signals:
@@ -210,18 +257,169 @@ process
 
 		wait for c_SPI_CLOCK_HALF_PERIOD/2; -- Wait a bit to de-assert cs
 		cs <= '1';
-
-
 	end procedure;
 
-	-- main testing sequence
+	procedure Test_Case_Write_Operation_Multiple is
 	begin
-		Test_Case_Write_Operation;
+		report "Test_Case_Write_Operation_Multiple" severity note;
+		testCaseId <= 3;
+		Reset_Testbench;
+		wait until rising_edge(clock);
+
+		-- set up test start conditions
+		cs <= '1';
+		mosi <= '0';
+		wait for 10 us;
+
+		-- test
+		r_spi_address <= std_logic_vector(to_unsigned(16#5ABC#, c_NUMBER_OF_ADDRESS_BITS));
+		r_spi_data <= std_logic_vector(to_unsigned(16#DE#, c_NUMBER_OF_DATA_BITS));
+
+		cs <= '0';
+
+		-- mode
+		mosi <= c_MODE_WRITE;
+
+		-- address
+		for i in 0 to c_NUMBER_OF_ADDRESS_BITS - 1 loop
+			wait until falling_edge(sclk);
+			mosi <= r_spi_address(c_NUMBER_OF_ADDRESS_BITS - 1 - i);
+		end loop;
+
+		-- data byte 0
+		for i in 0 to c_NUMBER_OF_DATA_BITS - 1 loop
+			wait until falling_edge(sclk);
+			mosi <= r_spi_data(c_NUMBER_OF_DATA_BITS - 1 - i);
+		end loop;
+
+		wait until rising_edge(CYC_O);
+		wait until rising_edge(clock);
+		ACK_I <= '1';
+		Assert_Wishbone_Interface_Write(r_spi_address, r_spi_data);
+		wait until rising_edge(clock);
+		ACK_I <= '0';
+		wait until rising_edge(clock);
+		Assert_Wishbone_Interface_Idle;
+
+		-- data byte 1
+		r_spi_data <= std_logic_vector(to_unsigned(16#ED#, c_NUMBER_OF_DATA_BITS));
+		r_spi_address <= std_logic_vector(unsigned(r_spi_address) + 1);
+		wait until rising_edge(clock);
+		for i in 0 to c_NUMBER_OF_DATA_BITS - 1 loop
+			wait until falling_edge(sclk);
+			mosi <= r_spi_data(c_NUMBER_OF_DATA_BITS - 1 - i);
+		end loop;
+
+		wait until rising_edge(CYC_O);
+		wait until rising_edge(clock);
+		ACK_I <= '1';
+		Assert_Wishbone_Interface_Write(r_spi_address, r_spi_data);
+		wait until rising_edge(clock);
+		ACK_I <= '0';
+		wait until rising_edge(clock);
+		Assert_Wishbone_Interface_Idle;
+
+		wait until falling_edge(sclk);
+		wait for c_SPI_CLOCK_HALF_PERIOD/2; -- Wait a bit to de-assert cs
+		cs <= '1';
+	end procedure;
+
+	procedure Test_Case_Read_Operation_Multiple is
+	begin
+		report "Test_Case_Read_Operation_Multiple" severity note;
+		testCaseId <= 4;
+		Reset_Testbench;
+		wait until rising_edge(clock);
+
+		-- set up test start conditions
+		cs <= '1';
+		mosi <= '0';
+		wait for 10 us;
+
+		-- test
+		r_spi_address <= std_logic_vector(to_unsigned(16#5ABC#, c_NUMBER_OF_ADDRESS_BITS));
+		r_data_to_compare <= std_logic_vector(to_unsigned(16#DE#, c_NUMBER_OF_DATA_BITS));
+
+		cs <= '0';
+
+		-- mode
+		mosi <= c_MODE_READ;
+
+		-- address
+		for i in 0 to c_NUMBER_OF_ADDRESS_BITS - 1 loop
+			wait until falling_edge(sclk);
+			mosi <= r_spi_address(c_NUMBER_OF_ADDRESS_BITS - 1 - i);
+		end loop;
+
+		wait until rising_edge(CYC_O);
+		wait until rising_edge(clock);
+		ACK_I <= '1';
+		Assert_Wishbone_Interface_Read(r_spi_address);
+		DAT_I <= r_data_to_compare;
+			
+		wait until rising_edge(clock);
+		ACK_I <= '0';
+		wait until rising_edge(clock);
+		Assert_Wishbone_Interface_Idle;
+
+		-- data byte 0
+		for i in 0 to c_NUMBER_OF_DATA_BITS - 1 loop
+			wait until falling_edge(sclk);
+			wait until rising_edge(sclk);
+			r_spi_data(c_NUMBER_OF_DATA_BITS - 1 - i) <= miso;
+			r_debug_unsigned <= c_NUMBER_OF_DATA_BITS - 1 - i;
+		end loop;
+		wait until rising_edge(clock);
+		assert r_data_to_compare = r_spi_data report "Data not correct!" severity warning;
+
+		-- data byte 1
+		r_data_to_compare <= std_logic_vector(to_unsigned(16#ED#, c_NUMBER_OF_DATA_BITS));
+		r_spi_address <= std_logic_vector(unsigned(r_spi_address) + 1);
+
+		wait until rising_edge(CYC_O);
+		wait until rising_edge(clock);
+		ACK_I <= '1';
+		Assert_Wishbone_Interface_Read(r_spi_address);
+		DAT_I <= r_data_to_compare;
+			
+		wait until rising_edge(clock);
+		ACK_I <= '0';
+		wait until rising_edge(clock);
+		Assert_Wishbone_Interface_Idle;
+
+		for i in 0 to c_NUMBER_OF_DATA_BITS - 1 loop
+			wait until falling_edge(sclk);
+			wait until rising_edge(sclk);
+			r_spi_data(c_NUMBER_OF_DATA_BITS - 1 - i) <= miso;
+			r_debug_unsigned <= c_NUMBER_OF_DATA_BITS - 1 - i;
+		end loop;
+		wait until rising_edge(clock);
+		assert r_data_to_compare = r_spi_data report "Data not correct!" severity warning;
+
+		-- Last dummy wishbone transaction so that the interface does not hang
+		wait until rising_edge(CYC_O);
+		wait until rising_edge(clock);
+		ACK_I <= '1';
+		wait until rising_edge(clock);
+		ACK_I <= '0';
+
+		wait until falling_edge(sclk);
+		wait for c_SPI_CLOCK_HALF_PERIOD/2; -- Wait a bit to de-assert cs
+		cs <= '1';
+	end procedure;
+
+	begin
+		--Test_Case_Write_Operation;
+		--wait for c_SPI_CLOCK_HALF_PERIOD * 10;
+		--Test_Case_Read_Operation;
+		--wait for c_SPI_CLOCK_HALF_PERIOD * 10;
+		--Test_Case_Write_Operation_Multiple;
+		--wait for c_SPI_CLOCK_HALF_PERIOD * 10;
+		Test_Case_Read_Operation_Multiple;
 		wait for c_SPI_CLOCK_HALF_PERIOD * 10;
-		Test_Case_Read_Operation;
 
 		-- testing finished
 		wait;
-end process;
+	end process;
 
 end behave;

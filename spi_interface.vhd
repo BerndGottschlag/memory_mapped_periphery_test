@@ -17,9 +17,8 @@ use ieee.numeric_std.all;
 -- The packet format is the following:
 -- 1 bit opcode (0 for reading, 1 for writing)
 -- 15 bit address, msb first
--- 8 bits data, either received on MOSI or sent on MISO, msb first TODO: implement subsequent data bytes
+-- n times 8 bits data, either received on MOSI or sent on MISO, msb first
 
--- Note: Current limitation: Every packet can only be 32 bit long
 
 
 -- This component implements a wishbone interface:
@@ -100,7 +99,7 @@ begin
 	-- TODO: put the following into a package
 	procedure p_WISHBONE_SINGLE_WRITE (
 		signal r_perform_write : inout std_logic;
-		signal r_address : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
+		signal r_address : inout std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		signal r_data : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
 
 		signal r_wb_dat : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
@@ -127,13 +126,15 @@ begin
 				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH));
 
 				r_perform_write <= '0';
+
+				r_address <= std_logic_vector(unsigned(r_address) + 1); -- Increment address for next byte
 			end if;
 		end if;
 	end p_WISHBONE_SINGLE_WRITE;
 
 	procedure p_WISHBONE_SINGLE_READ (
 		signal r_perform_read : inout std_logic;
-		signal r_address : in std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
+		signal r_address : inout std_logic_vector (g_WB_ADDRESS_BUS_WIDTH - 1 downto 0);
 		signal r_data : out std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
 
 		signal r_wb_dat : in std_logic_vector (g_WB_DATA_BUS_WIDTH - 1 downto 0);
@@ -150,6 +151,14 @@ begin
 				r_wb_adr <= r_address;
 				r_wb_cyc <= '1';
 				r_wb_stb <= '1';
+			elsif (r_wb_err = '1') then
+				-- This can happen if a SPI transaction fetched the last byte in the address space of the WB slave
+				r_wb_cyc <= '0';
+				r_wb_stb <= '0';
+				r_wb_we <= '0';
+				r_data <= std_logic_vector(to_unsigned(0, g_WB_DATA_BUS_WIDTH));
+
+				r_perform_read <= '0';
 			else
 				r_data <= r_wb_dat;
 				r_wb_cyc <= '0';
@@ -158,6 +167,8 @@ begin
 				r_wb_adr <= std_logic_vector(to_unsigned(0, g_WB_ADDRESS_BUS_WIDTH));
 
 				r_perform_read <= '0';
+
+				r_address <= std_logic_vector(unsigned(r_address) + 1); -- Increment address for next byte
 			end if;
 		end if;
 	end p_WISHBONE_SINGLE_READ;
@@ -225,6 +236,10 @@ begin
 								end if;
 							else
 								o_miso <= r_data(r_dataBitCounter);
+								-- Fetch the next byte in case more than one byte is transferred
+								if (r_dataBitCounter = 0) then
+									r_perform_read <= '1';
+								end if;
 							end if;
 							if (r_dataBitCounter > 0) then
 								r_dataBitCounter <= r_dataBitCounter - 1;
